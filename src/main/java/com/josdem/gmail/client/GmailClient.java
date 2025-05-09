@@ -58,7 +58,7 @@ public class GmailClient {
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
-        VerificationCodeReceiver receiver = new JmailerVerificationCodeReceiverImpl.Builder().setPort(8080).build();
+        VerificationCodeReceiver receiver = new JmailerVerificationCodeReceiverImpl.Builder().setPort(8083).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
