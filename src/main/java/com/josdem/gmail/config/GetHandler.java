@@ -27,6 +27,7 @@ import java.util.Map;
 
 @Component
 public class GetHandler implements HttpHandler {
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         StringBuilder response = new StringBuilder();

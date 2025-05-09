@@ -1,2 +1,3 @@
 api:
   port: 8080
+  callback: "/Callback"

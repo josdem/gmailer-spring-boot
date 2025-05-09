@@ -27,4 +27,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("api")
 public class ApplicationProperties {
     private int port;
+    private String callback;
 }
