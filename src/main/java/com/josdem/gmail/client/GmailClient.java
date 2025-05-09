@@ -43,7 +43,7 @@ public class GmailClient {
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
 
-    private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+    public Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         InputStream in = GmailClient.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
 
         if (in == null) {
