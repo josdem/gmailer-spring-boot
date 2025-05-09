@@ -26,7 +26,9 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.client.util.store.FileDataStoreFactory;
+import com.josdem.gmail.config.ApplicationProperties;
 import com.josdem.gmail.service.JmailerVerificationCodeReceiverImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -36,12 +38,15 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class GmailClient {
 
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
+
+    private final ApplicationProperties applicationProperties;
 
     public Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         InputStream in = GmailClient.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
@@ -58,7 +63,7 @@ public class GmailClient {
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
-        VerificationCodeReceiver receiver = new JmailerVerificationCodeReceiverImpl.Builder().setPort(8083).build();
+        VerificationCodeReceiver receiver = new JmailerVerificationCodeReceiverImpl.Builder().setPort(applicationProperties.getPort()).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 

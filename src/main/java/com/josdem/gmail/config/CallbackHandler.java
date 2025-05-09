@@ -92,7 +92,7 @@ public class CallbackHandler implements HttpHandler {
     private void writeLandingHtml(HttpExchange exchange, Headers headers) throws IOException {
         try (OutputStream os = exchange.getResponseBody()) {
             exchange.sendResponseHeaders(HTTP_OK, 0);
-            headers.add("ContentType", "text/html");
+            headers.add("Content-Type", "text/html");
 
             OutputStreamWriter doc = new OutputStreamWriter(os, StandardCharsets.UTF_8);
             doc.write("<html>");
