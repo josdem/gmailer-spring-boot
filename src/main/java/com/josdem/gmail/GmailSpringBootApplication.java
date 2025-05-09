@@ -26,7 +26,8 @@ public class GmailSpringBootApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		try {
 			HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-			server.createContext("/send", new SenderHandler());
+			server.createContext("/info", new InfoHandler());
+			server.createContext("/get", new GetHandler());
 			server.setExecutor(null);
 			server.start();
 			System.out.println("Server started on port 8080");
@@ -36,11 +37,11 @@ public class GmailSpringBootApplication implements CommandLineRunner {
 		}
 	}
 
-	static class SenderHandler implements HttpHandler {
+	static class InfoHandler implements HttpHandler {
 
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
-			String response = "Use /get?hello=word";
+			String response = "Use /get?to=contact@josdem.io&template=welcome.ftl";
 			exchange.sendResponseHeaders(200, response.getBytes().length);
 			try (var os = exchange.getResponseBody()) {
 				os.write(response.getBytes());
@@ -61,8 +62,8 @@ public class GmailSpringBootApplication implements CommandLineRunner {
 			StringBuilder response = new StringBuilder();
 			Map<String,String> parms = queryToMap(httpExchange.getRequestURI().getQuery());
 			response.append("<html><body>");
-			response.append("hello : " + parms.get("hello") + "<br/>");
-			response.append("foo : " + parms.get("foo") + "<br/>");
+			response.append("to : " + parms.get("to") + "<br/>");
+			response.append("template : " + parms.get("template") + "<br/>");
 			response.append("</body></html>");
 			writeResponse(httpExchange, response.toString());
 		}
