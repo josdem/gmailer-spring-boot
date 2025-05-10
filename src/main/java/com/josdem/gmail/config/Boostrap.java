@@ -31,6 +31,7 @@ public class Boostrap implements ApplicationListener<ApplicationReadyEvent> {
     private final HttpServer httpServer;
     private final InfoHandler infoHandler;
     private final GetHandler getHandler;
+    private final ApplicationProperties applicationProperties;
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
@@ -38,6 +39,7 @@ public class Boostrap implements ApplicationListener<ApplicationReadyEvent> {
         try {
             httpServer.createContext("/info", infoHandler);
             httpServer.createContext("/get", getHandler);
+            httpServer.createContext(applicationProperties.getCallback(), new CallbackHandler());
             httpServer.start();
             log.info("HTTP server started on port {}", httpServer.getAddress().getPort());
         } catch (Exception e) {
