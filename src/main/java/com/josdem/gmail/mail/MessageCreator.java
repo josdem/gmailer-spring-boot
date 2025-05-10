@@ -16,30 +16,26 @@
 
 package com.josdem.gmail.mail;
 
+import org.apache.commons.codec.binary.Base64;
+
+import com.google.api.services.gmail.model.Message;
 import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 @Component
-public class EmailCreator {
+public class MessageCreator {
 
-    public MimeMessage create(String toEmailAddress,
-                              String fromEmailAddress,
-                              String subject,
-                              String bodyText) throws MessagingException {
-        var props = new Properties();
-        var session = Session.getDefaultInstance(props, null);
-
-        var email = new MimeMessage(session);
-
-        email.setFrom(new InternetAddress(fromEmailAddress));
-        email.addRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress(toEmailAddress));
-        email.setSubject(subject);
-        email.setText(bodyText);
-        return email;
+    public Message createMessageWithEmail(MimeMessage emailContent) throws MessagingException, IOException {
+        var buffer = new ByteArrayOutputStream();
+        emailContent.writeTo(buffer);
+        byte[] bytes = buffer.toByteArray();
+        var encodedEmail = Base64.encodeBase64URLSafeString(bytes);
+        var message = new Message();
+        message.setRaw(encodedEmail);
+        return message;
     }
 }
