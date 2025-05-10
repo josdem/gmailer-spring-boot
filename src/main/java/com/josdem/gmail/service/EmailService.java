@@ -18,10 +18,11 @@ package com.josdem.gmail.service;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public interface EmailService {
 
     void sendEmail(String toEmailAddress,
                    String subject,
-                   String bodyText) throws IOException, MessagingException;
+                   String bodyText) throws IOException, MessagingException, GeneralSecurityException;
 }

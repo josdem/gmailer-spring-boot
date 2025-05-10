@@ -30,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.security.GeneralSecurityException;
@@ -46,7 +47,11 @@ public class GetHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        emailService.sendEmail("contact@josdem.io", "Test Email", "This is a test email");
+        try {
+            emailService.sendEmail("contact@josdem.io", "Test Email", "This is a test email");
+        } catch (MessagingException | GeneralSecurityException mee) {
+            throw new RuntimeException(mee);
+        }
 
         StringBuilder response = new StringBuilder();
         Map<String,String> parms = queryToMap(httpExchange.getRequestURI().getQuery());

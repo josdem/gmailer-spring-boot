@@ -46,21 +46,16 @@ public class EmailServiceImpl implements EmailService {
     private final EmailCreator emailCreator;
     private final MessageCreator messageCreator;
     private final GmailClient gmailClient;
-    private Gmail service;
-
-
-    @PostConstruct
-    public void init() throws GeneralSecurityException, IOException {
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-
-        Credential credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
-        service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-    }
 
     @Override
-    public void sendEmail(String toEmailAddress, String subject, String bodyText) throws IOException, MessagingException {
+    public void sendEmail(String toEmailAddress, String subject, String bodyText) throws IOException, MessagingException, GeneralSecurityException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+
+        var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
+        var service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+
         var createEmail = emailCreator.create("contact@josdem.io", "vetlog@josdem.io", "Test email", "This is a test email");
         var message = messageCreator.createMessageWithEmail(createEmail);
         var result = service.users().messages().send("me", message).execute();
