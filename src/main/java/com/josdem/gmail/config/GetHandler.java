@@ -23,6 +23,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.gmail.Gmail;
 import com.josdem.gmail.client.GmailClient;
+import com.josdem.gmail.service.EmailService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import lombok.RequiredArgsConstructor;
@@ -40,20 +41,12 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class GetHandler implements HttpHandler {
 
-    private final GmailClient gmailClient;
+    private final EmailService emailService;
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        final NetHttpTransport HTTP_TRANSPORT;
-        try {
-            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        } catch (GeneralSecurityException gse) {
-            throw new RuntimeException(gse);
-        }
-
-        Credential credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
-        log.info("access_token: {}", credentials.getAccessToken());
+        emailService.sendEmail("contact@josdem.io", "Test Email", "This is a test email");
 
         StringBuilder response = new StringBuilder();
         Map<String,String> parms = queryToMap(httpExchange.getRequestURI().getQuery());
