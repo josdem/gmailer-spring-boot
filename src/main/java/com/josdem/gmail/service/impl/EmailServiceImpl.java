@@ -48,7 +48,7 @@ public class EmailServiceImpl implements EmailService {
     private final ApplicationProperties applicationProperties;
 
     @Override
-    public void sendEmail(String toEmailAddress, String subject, String bodyText) throws IOException, MessagingException, GeneralSecurityException {
+    public boolean sendEmail(String toEmailAddress, String subject, String bodyText) throws IOException, MessagingException, GeneralSecurityException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
         var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
@@ -60,5 +60,6 @@ public class EmailServiceImpl implements EmailService {
         var message = messageCreator.createMessageWithEmail(createEmail);
         var result = service.users().messages().send("me", message).execute();
         log.info("result: {}", result);
+        return true;
     }
 }

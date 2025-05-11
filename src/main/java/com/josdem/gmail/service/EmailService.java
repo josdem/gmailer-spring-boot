@@ -22,7 +22,7 @@ import java.security.GeneralSecurityException;
 
 public interface EmailService {
 
-    void sendEmail(String toEmailAddress,
+    boolean sendEmail(String toEmailAddress,
                    String subject,
                    String bodyText) throws IOException, MessagingException, GeneralSecurityException;
 }
