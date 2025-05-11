@@ -16,14 +16,17 @@
 
 package com.josdem.gmail.config;
 
+import com.josdem.gmail.service.EmailService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +35,22 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class GetHandler implements HttpHandler {
 
+    private final EmailService emailService;
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+
+        try {
+            emailService.sendEmail("contact@josdem.io", "Test email", "This is a test email");
+        } catch (MessagingException | GeneralSecurityException e) {
+            log.error("Error occurred while sending email: {}", e.getMessage(), e);
+            String errorMessage = "Failed to send email due to an internal error.";
+            httpExchange.sendResponseHeaders(500, errorMessage.length());
+            OutputStream os = httpExchange.getResponseBody();
+            os.write(errorMessage.getBytes());
+            os.close();
+        }
+
         StringBuilder response = new StringBuilder();
         Map<String, String> parms = queryToMap(httpExchange.getRequestURI().getQuery());
         response.append("<html><body>");

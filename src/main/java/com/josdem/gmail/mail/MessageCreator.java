@@ -1,16 +1,20 @@
-package com.josdem.gmail.client;
+package com.josdem.gmail.mail;
 
 import com.google.api.services.gmail.model.Message;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.stereotype.Component;
 
-/* Class to demonstrate the use of Gmail Create Message API */
-public class CreateMessage {
+@Component
+@RequiredArgsConstructor
+public class MessageCreator {
 
-    public static Message createMessageWithEmail(MimeMessage emailContent)
+    public Message createMessageWithEmail(MimeMessage emailContent)
             throws MessagingException, IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         emailContent.writeTo(buffer);
