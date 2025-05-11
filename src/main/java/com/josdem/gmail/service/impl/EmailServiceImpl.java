@@ -21,45 +21,48 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.gmail.Gmail;
+import com.josdem.gmail.client.GmailClient;
 import com.josdem.gmail.config.ApplicationProperties;
 import com.josdem.gmail.mail.EmailCreator;
 import com.josdem.gmail.mail.MessageCreator;
 import com.josdem.gmail.service.EmailService;
-import com.josdem.gmail.client.GmailClient;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import javax.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import javax.mail.MessagingException;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
-    private static final String APPLICATION_NAME = "emailer-spring-boot";
-    private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
+  private static final String APPLICATION_NAME = "emailer-spring-boot";
+  private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-    private final EmailCreator emailCreator;
-    private final MessageCreator messageCreator;
-    private final GmailClient gmailClient;
-    private final ApplicationProperties applicationProperties;
+  private final EmailCreator emailCreator;
+  private final MessageCreator messageCreator;
+  private final GmailClient gmailClient;
+  private final ApplicationProperties applicationProperties;
 
-    @Override
-    public boolean sendEmail(String toEmailAddress, String subject, String bodyText) throws IOException, MessagingException, GeneralSecurityException {
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+  @Override
+  public boolean sendEmail(String toEmailAddress, String subject, String bodyText)
+      throws IOException, MessagingException, GeneralSecurityException {
+    final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
-        var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
-        var service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
-                .setApplicationName(APPLICATION_NAME)
-                .build();
+    var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
+    var service =
+        new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
+            .setApplicationName(APPLICATION_NAME)
+            .build();
 
-        var createEmail = emailCreator.create(toEmailAddress, applicationProperties.getFromEmail(), subject, bodyText);
-        var message = messageCreator.createMessageWithEmail(createEmail);
-        var result = service.users().messages().send("me", message).execute();
-        log.info("result: {}", result);
-        return true;
-    }
+    var createEmail =
+        emailCreator.create(
+            toEmailAddress, applicationProperties.getFromEmail(), subject, bodyText);
+    var message = messageCreator.createMessageWithEmail(createEmail);
+    var result = service.users().messages().send("me", message).execute();
+    log.info("result: {}", result);
+    return true;
+  }
 }

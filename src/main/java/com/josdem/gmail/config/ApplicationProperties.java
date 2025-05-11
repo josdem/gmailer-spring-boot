@@ -26,5 +26,5 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties("api")
 public class ApplicationProperties {
-    private String fromEmail;
+  private String fromEmail;
 }

@@ -18,6 +18,9 @@ package com.josdem.gmail.controller;
 
 import com.josdem.gmail.model.MessageCommand;
 import com.josdem.gmail.service.EmailService;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import javax.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,22 +29,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class EmailerController {
 
-    private final EmailService emailService;
+  private final EmailService emailService;
 
-    @PostMapping(value = "/message", consumes = "application/json")
-    public ResponseEntity<String> message(@RequestBody MessageCommand command) throws MessagingException, GeneralSecurityException, IOException {
-        log.info("Request send email to: {}", command.getEmail());
-        emailService.sendEmail(command.getEmail(), command.getSubject(), "Template to send: " + command.getTemplate());
-        return new ResponseEntity<>("OK", HttpStatus.OK);
-    }
-
+  @PostMapping(value = "/message", consumes = "application/json")
+  public ResponseEntity<String> message(@RequestBody MessageCommand command)
+      throws MessagingException, GeneralSecurityException, IOException {
+    log.info("Request send email to: {}", command.getEmail());
+    emailService.sendEmail(
+        command.getEmail(), command.getSubject(), "Template to send: " + command.getTemplate());
+    return new ResponseEntity<>("OK", HttpStatus.OK);
+  }
 }

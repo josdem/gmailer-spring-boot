@@ -18,7 +18,6 @@ package com.josdem.gmail.client;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.java6.auth.oauth2.VerificationCodeReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -26,17 +25,14 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.GmailScopes;
-import com.josdem.gmail.config.ApplicationProperties;
 import com.josdem.gmail.service.impl.EmailerVerificationCodeReceiverImpl;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
-
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
@@ -46,20 +42,19 @@ public class GmailClient {
   private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
   private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
-  public Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT)
-      throws IOException {
+  public Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
     InputStream in = GmailClient.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
 
-      assert in != null;
-      GoogleClientSecrets clientSecrets =
+    assert in != null;
+    GoogleClientSecrets clientSecrets =
         GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
-    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-        HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-        .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-        .setAccessType("offline")
-        .build();
-    return new AuthorizationCodeInstalledApp(flow, new EmailerVerificationCodeReceiverImpl()).authorize("user");
+    GoogleAuthorizationCodeFlow flow =
+        new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+            .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+            .setAccessType("offline")
+            .build();
+    return new AuthorizationCodeInstalledApp(flow, new EmailerVerificationCodeReceiverImpl())
+        .authorize("user");
   }
-
 }

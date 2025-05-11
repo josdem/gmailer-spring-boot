@@ -24,8 +24,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EmailerSpringBootApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(EmailerSpringBootApplication.class, args);
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(EmailerSpringBootApplication.class, args);
+  }
 }
