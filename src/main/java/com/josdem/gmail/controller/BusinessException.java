@@ -14,15 +14,6 @@
   limitations under the License.
 */
 
-package com.josdem.gmail.model;
+package com.josdem.gmail.controller;
 
-import lombok.Data;
-
-@Data
-public class MessageCommand implements Command {
-  private String name;
-  private String email;
-  private String subject;
-  private String template;
-  private String token;
-}
+public class BusinessException extends RuntimeException {}

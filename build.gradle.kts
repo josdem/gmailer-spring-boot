@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.run.BootRun
+
 plugins {
     id("org.springframework.boot") version "3.4.5"
     id("io.spring.dependency-management") version "1.1.7"
@@ -69,6 +71,11 @@ tasks.withType<Test> {
     useJUnitPlatform()
     systemProperties(System.getProperties().toMap() as Map<String,Object>)
 }
+
+tasks.withType<BootRun> {
+    systemProperties(System.getProperties().toMap() as Map<String,Object>)
+}
+
 
 tasks.withType<Test> {
     dependsOn("spotlessApply")

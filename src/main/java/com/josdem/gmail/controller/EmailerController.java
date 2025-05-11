@@ -23,25 +23,44 @@ import java.security.GeneralSecurityException;
 import javax.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
+@RequestMapping("/emailer/*")
 @RequiredArgsConstructor
 public class EmailerController {
 
-  private final EmailService emailService;
+    @Value("${token}")
+    private String token;
 
-  @PostMapping(value = "/message", consumes = "application/json")
-  public ResponseEntity<String> message(@RequestBody MessageCommand command)
-      throws MessagingException, GeneralSecurityException, IOException {
-    log.info("Request send email to: {}", command.getEmail());
-    emailService.sendEmail(
-        command.getEmail(), command.getSubject(), "Template to send: " + command.getTemplate());
-    return new ResponseEntity<>("OK", HttpStatus.OK);
-  }
+    private final EmailService emailService;
+
+    @PostMapping(value = "/message", consumes = "application/json")
+    public ResponseEntity<String> message(@RequestBody MessageCommand command)
+            throws MessagingException, GeneralSecurityException, IOException {
+        log.info("Request send email to: {}", command.getEmail());
+        if (!token.equals(command.getToken())) {
+            return new ResponseEntity<String>("FORBIDDEN", HttpStatus.FORBIDDEN);
+        }
+        emailService.sendEmail(
+                command.getEmail(), command.getSubject(), "Template to send: " + command.getTemplate());
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Unauthorized")
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<String> handleException(BusinessException be) {
+        return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+    }
 }
+
+
