@@ -8,5 +8,11 @@ Simple Gmail API server
 ./gradlew bootRun
 ```
 
+#### To Run, Call and Configuration
+
+* https://github.com/josdem/emailer-spring-boot/wiki
+
 **References**
 [gmail-api-client](https://github.com/josdem/gmail-api-client)
+
+
