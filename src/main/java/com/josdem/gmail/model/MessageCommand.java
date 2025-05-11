@@ -20,6 +20,7 @@ import lombok.Data;
 
 @Data
 public class MessageCommand implements Command {
+  private String name;
   private String email;
   private String subject;
   private String template;
