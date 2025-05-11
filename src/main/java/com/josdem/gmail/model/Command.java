@@ -14,17 +14,8 @@
   limitations under the License.
 */
 
-package com.josdem.gmail.config;
+package com.josdem.gmail.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import java.io.Serializable;
 
-@Getter
-@Setter
-@Component
-@ConfigurationProperties("api")
-public class ApplicationProperties {
-    private String fromEmail;
-}
+public interface Command extends Serializable {}
