@@ -1,4 +1,4 @@
-package com.josdem.gmail.service;/*
+/*
  * Copyright (c) 2012 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -12,24 +12,14 @@ package com.josdem.gmail.service;/*
  * the License.
  */
 
-import static java.net.HttpURLConnection.HTTP_MOVED_TEMP;
-import static java.net.HttpURLConnection.HTTP_OK;
+package com.josdem.gmail.service;
 
 import com.google.api.client.extensions.java6.auth.oauth2.VerificationCodeReceiver;
 import com.google.api.client.util.Throwables;
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpContext;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -47,25 +37,39 @@ public final class JmailerVerificationCodeReceiverImpl implements VerificationCo
 
     private static final String CALLBACK_PATH = "/Callback";
 
-    /** Server or {@code null} before {@link #getRedirectUri()}. */
+    /**
+     * Server or {@code null} before {@link #getRedirectUri()}.
+     */
     private HttpServer server;
 
-    /** Verification code or {@code null} for none. */
+    /**
+     * Verification code or {@code null} for none.
+     */
     String code;
 
-    /** Error code or {@code null} for none. */
+    /**
+     * Error code or {@code null} for none.
+     */
     String error;
 
-    /** To block until receiving an authorization response or stop() is called. */
+    /**
+     * To block until receiving an authorization response or stop() is called.
+     */
     final Semaphore waitUnlessSignaled = new Semaphore(0 /* initially zero permit */);
 
-    /** Port to use or {@code -1} to select an unused port in {@link #getRedirectUri()}. */
+    /**
+     * Port to use or {@code -1} to select an unused port in {@link #getRedirectUri()}.
+     */
     private int port;
 
-    /** Host name to use. */
+    /**
+     * Host name to use.
+     */
     private final String host;
 
-    /** Callback path of redirect_uri. */
+    /**
+     * Callback path of redirect_uri.
+     */
     private final String callbackPath;
 
     /**
@@ -142,9 +146,9 @@ public final class JmailerVerificationCodeReceiverImpl implements VerificationCo
      * to return an authorization code.
      *
      * @return authorization code if login succeeds; may return {@code null} if the server is stopped
-     *     by {@link #stop()}
+     * by {@link #stop()}
      * @throws IOException if the server receives an error code (through an HTTP request parameter
-     *     {@code error})
+     *                     {@code error})
      */
     @Override
     public String waitForCode() throws IOException {
@@ -169,7 +173,9 @@ public final class JmailerVerificationCodeReceiverImpl implements VerificationCo
         }
     }
 
-    /** Returns the host name to use. */
+    /**
+     * Returns the host name to use.
+     */
     public String getHost() {
         return host;
     }
@@ -181,7 +187,9 @@ public final class JmailerVerificationCodeReceiverImpl implements VerificationCo
         return port;
     }
 
-    /** Returns callback path used in redirect_uri. */
+    /**
+     * Returns callback path used in redirect_uri.
+     */
     public String getCallbackPath() {
         return callbackPath;
     }
@@ -193,10 +201,14 @@ public final class JmailerVerificationCodeReceiverImpl implements VerificationCo
      */
     public static final class Builder {
 
-        /** Host name to use. */
+        /**
+         * Host name to use.
+         */
         private String host = LOCALHOST;
 
-        /** Port to use or {@code -1} to select an unused port. */
+        /**
+         * Port to use or {@code -1} to select an unused port.
+         */
         private int port = -1;
 
         private String successLandingPageUrl;
@@ -204,40 +216,54 @@ public final class JmailerVerificationCodeReceiverImpl implements VerificationCo
 
         private String callbackPath = CALLBACK_PATH;
 
-        /** Builds the {@link JmailerVerificationCodeReceiverImpl}. */
+        /**
+         * Builds the {@link JmailerVerificationCodeReceiverImpl}.
+         */
         public JmailerVerificationCodeReceiverImpl build() {
             return new JmailerVerificationCodeReceiverImpl(
                     host, port, callbackPath, successLandingPageUrl, failureLandingPageUrl);
         }
 
-        /** Returns the host name to use. */
+        /**
+         * Returns the host name to use.
+         */
         public String getHost() {
             return host;
         }
 
-        /** Sets the host name to use. */
+        /**
+         * Sets the host name to use.
+         */
         public Builder setHost(String host) {
             this.host = host;
             return this;
         }
 
-        /** Returns the port to use or {@code -1} to select an unused port. */
+        /**
+         * Returns the port to use or {@code -1} to select an unused port.
+         */
         public int getPort() {
             return port;
         }
 
-        /** Sets the port to use or {@code -1} to select an unused port. */
+        /**
+         * Sets the port to use or {@code -1} to select an unused port.
+         */
         public Builder setPort(int port) {
             this.port = port;
             return this;
         }
 
-        /** Returns the callback path of redirect_uri. */
+        /**
+         * Returns the callback path of redirect_uri.
+         */
         public String getCallbackPath() {
             return callbackPath;
         }
 
-        /** Set the callback path of redirect_uri. */
+        /**
+         * Set the callback path of redirect_uri.
+         */
         public Builder setCallbackPath(String callbackPath) {
             this.callbackPath = callbackPath;
             return this;
