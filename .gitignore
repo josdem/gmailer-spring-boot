@@ -1,0 +1,5 @@
+.gradle/
+.idea/
+tokens/
+build/
+**credentials.json
