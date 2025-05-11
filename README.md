@@ -1,4 +1,4 @@
-gmail-api-client-workshop
+emailer-spring-boot
 ----------------------------------------------
 Simple Gmail API client
 

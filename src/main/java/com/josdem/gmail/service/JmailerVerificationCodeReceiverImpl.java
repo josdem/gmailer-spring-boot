@@ -122,17 +122,6 @@ public final class JmailerVerificationCodeReceiverImpl implements VerificationCo
     @Override
     public String getRedirectUri() throws IOException {
 
-        server = HttpServer.create(new InetSocketAddress(port != -1 ? port : findOpenPort()), 0);
-        HttpContext context = server.createContext(callbackPath, new CallbackHandler());
-        server.setExecutor(null);
-
-        try {
-            server.start();
-            port = server.getAddress().getPort();
-        } catch (Exception e) {
-            Throwables.propagateIfPossible(e);
-            throw new IOException(e);
-        }
         return "http://" + this.getHost() + ":" + port + callbackPath;
     }
 
@@ -261,71 +250,4 @@ public final class JmailerVerificationCodeReceiverImpl implements VerificationCo
         }
     }
 
-    /**
-     * HttpServer handler that takes the verifier token passed over from the OAuth provider and
-     * stashes it where {@link #waitForCode} will find it.
-     */
-    class CallbackHandler implements HttpHandler {
-
-        @Override
-        public void handle(HttpExchange httpExchange) throws IOException {
-
-            if (!callbackPath.equals(httpExchange.getRequestURI().getPath())) {
-                return;
-            }
-
-            StringBuilder body = new StringBuilder();
-
-            try {
-                Map<String, String> parms = this.queryToMap(httpExchange.getRequestURI().getQuery());
-                error = parms.get("error");
-                code = parms.get("code");
-
-                Headers respHeaders = httpExchange.getResponseHeaders();
-                if (error == null && successLandingPageUrl != null) {
-                    respHeaders.add("Location", successLandingPageUrl);
-                    httpExchange.sendResponseHeaders(HTTP_MOVED_TEMP, -1);
-                } else if (error != null && failureLandingPageUrl != null) {
-                    respHeaders.add("Location", failureLandingPageUrl);
-                    httpExchange.sendResponseHeaders(HTTP_MOVED_TEMP, -1);
-                } else {
-                    writeLandingHtml(httpExchange, respHeaders);
-                }
-                httpExchange.close();
-            } finally {
-                waitUnlessSignaled.release();
-            }
-        }
-
-        private Map<String, String> queryToMap(String query) {
-            Map<String, String> result = new HashMap<String, String>();
-            if (query != null) {
-                for (String param : query.split("&")) {
-                    String pair[] = param.split("=");
-                    if (pair.length > 1) {
-                        result.put(pair[0], pair[1]);
-                    } else {
-                        result.put(pair[0], "");
-                    }
-                }
-            }
-            return result;
-        }
-
-        private void writeLandingHtml(HttpExchange exchange, Headers headers) throws IOException {
-            try (OutputStream os = exchange.getResponseBody()) {
-                exchange.sendResponseHeaders(HTTP_OK, 0);
-                headers.add("ContentType", "text/html");
-
-                OutputStreamWriter doc = new OutputStreamWriter(os, StandardCharsets.UTF_8);
-                doc.write("<html>");
-                doc.write("<head><title>OAuth 2.0 Authentication Token Received</title></head>");
-                doc.write("<body>");
-                doc.write("Received verification code. You may now close this window.");
-                doc.write("</body>");
-                doc.write("</html>\n");
-                doc.flush();
-            }
-        }
-    }
 }

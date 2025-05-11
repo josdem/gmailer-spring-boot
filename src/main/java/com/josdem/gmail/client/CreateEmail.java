@@ -1,4 +1,4 @@
-package com.josdem.gmail.helper;
+package com.josdem.gmail.client;
 
 import java.util.Properties;
 import javax.mail.MessagingException;
