@@ -43,7 +43,12 @@ public class GetHandler implements HttpHandler {
         try {
             emailService.sendEmail("contact@josdem.io", "Test email", "This is a test email");
         } catch (MessagingException | GeneralSecurityException e) {
-            throw new RuntimeException(e);
+            log.error("Error occurred while sending email: {}", e.getMessage(), e);
+            String errorMessage = "Failed to send email due to an internal error.";
+            httpExchange.sendResponseHeaders(500, errorMessage.length());
+            OutputStream os = httpExchange.getResponseBody();
+            os.write(errorMessage.getBytes());
+            os.close();
         }
 
         StringBuilder response = new StringBuilder();
