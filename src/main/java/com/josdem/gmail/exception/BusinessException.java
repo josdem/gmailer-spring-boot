@@ -14,6 +14,6 @@
   limitations under the License.
 */
 
-package com.josdem.gmail.controller;
+package com.josdem.gmail.exception;
 
 public class BusinessException extends RuntimeException {}

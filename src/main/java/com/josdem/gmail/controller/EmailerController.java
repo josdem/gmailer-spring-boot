@@ -16,6 +16,7 @@
 
 package com.josdem.gmail.controller;
 
+import com.josdem.gmail.exception.BusinessException;
 import com.josdem.gmail.model.MessageCommand;
 import com.josdem.gmail.service.EmailService;
 import java.io.IOException;
