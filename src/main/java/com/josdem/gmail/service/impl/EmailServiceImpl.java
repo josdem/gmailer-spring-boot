@@ -24,7 +24,7 @@ import com.google.api.services.gmail.Gmail;
 import com.josdem.gmail.mail.EmailCreator;
 import com.josdem.gmail.mail.MessageCreator;
 import com.josdem.gmail.service.EmailService;
-import com.josdem.gmail.service.GmailService;
+import com.josdem.gmail.client.GmailClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -43,17 +43,18 @@ public class EmailServiceImpl implements EmailService {
 
     private final EmailCreator emailCreator;
     private final MessageCreator messageCreator;
+    private final GmailClient gmailClient;
 
     @Override
     public void sendEmail(String toEmailAddress, String subject, String bodyText) throws IOException, MessagingException, GeneralSecurityException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
-        var credentials = GmailService.getCredentials(HTTP_TRANSPORT);
+        var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
         var service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
                 .setApplicationName(APPLICATION_NAME)
                 .build();
 
-        var createEmail = emailCreator.create("contact@josdem.io", "vetlog@josdem.io", "Test email", "This is a test email");
+        var createEmail = emailCreator.create(toEmailAddress, "vetlog@josdem.io", subject, bodyText);
         var message = messageCreator.createMessageWithEmail(createEmail);
         var result = service.users().messages().send("me", message).execute();
         log.info("result: {}", result);
