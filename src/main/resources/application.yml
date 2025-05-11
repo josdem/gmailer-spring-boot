@@ -1,4 +1,4 @@
 api:
-  port: 8083
-  callback: "/Callback"
   fromEmail: "vetlog@josdem.io"
+server:
+    port: 8083

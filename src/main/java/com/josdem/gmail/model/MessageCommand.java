@@ -14,17 +14,13 @@
   limitations under the License.
 */
 
-package com.josdem.gmail.config;
+package com.josdem.gmail.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import lombok.Data;
 
-@Getter
-@Setter
-@Component
-@ConfigurationProperties("api")
-public class ApplicationProperties {
-    private String fromEmail;
+@Data
+public class MessageCommand implements Command {
+    private String email;
+    private String subject;
+    private String template;
 }
