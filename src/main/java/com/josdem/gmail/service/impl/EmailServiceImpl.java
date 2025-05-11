@@ -21,6 +21,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.gmail.Gmail;
+import com.josdem.gmail.config.ApplicationProperties;
 import com.josdem.gmail.mail.EmailCreator;
 import com.josdem.gmail.mail.MessageCreator;
 import com.josdem.gmail.service.EmailService;
@@ -38,12 +39,13 @@ import java.security.GeneralSecurityException;
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
-    private static final String APPLICATION_NAME = "gmailer-spring-boot";
+    private static final String APPLICATION_NAME = "emailer-spring-boot";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
     private final EmailCreator emailCreator;
     private final MessageCreator messageCreator;
     private final GmailClient gmailClient;
+    private final ApplicationProperties applicationProperties;
 
     @Override
     public void sendEmail(String toEmailAddress, String subject, String bodyText) throws IOException, MessagingException, GeneralSecurityException {
@@ -54,7 +56,7 @@ public class EmailServiceImpl implements EmailService {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
 
-        var createEmail = emailCreator.create(toEmailAddress, "vetlog@josdem.io", subject, bodyText);
+        var createEmail = emailCreator.create(toEmailAddress, applicationProperties.getFromEmail(), subject, bodyText);
         var message = messageCreator.createMessageWithEmail(createEmail);
         var result = service.users().messages().send("me", message).execute();
         log.info("result: {}", result);

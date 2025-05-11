@@ -28,4 +28,5 @@ import org.springframework.stereotype.Component;
 public class ApplicationProperties {
     private int port;
     private String callback;
+    private String fromEmail;
 }
