@@ -1,4 +1,4 @@
-emailer-spring-boot
+gmailer-spring-boot
 ----------------------------------------------
 Simple Gmail API server
 
