@@ -1,4 +1,7 @@
-package com.josdem.gmail.client;
+package com.josdem.gmail.mail;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Properties;
 import javax.mail.MessagingException;
@@ -6,9 +9,11 @@ import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class CreateEmail {
+@Component
+@RequiredArgsConstructor
+public class EmailCreator {
 
-    public static MimeMessage createEmail(String toEmailAddress,
+    public MimeMessage create(String toEmailAddress,
                                           String fromEmailAddress,
                                           String subject,
                                           String bodyText)

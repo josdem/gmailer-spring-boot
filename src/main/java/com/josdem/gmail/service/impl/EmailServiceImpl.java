@@ -14,9 +14,8 @@
   limitations under the License.
 */
 
-package com.josdem.gmail.config;
+package com.josdem.gmail.service.impl;
 
-import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -26,44 +25,37 @@ import com.josdem.gmail.mail.EmailCreator;
 import com.josdem.gmail.mail.MessageCreator;
 import com.josdem.gmail.service.EmailService;
 import com.josdem.gmail.service.GmailService;
-import com.sun.net.httpserver.HttpServer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 @Slf4j
-@Component
+@Service
 @RequiredArgsConstructor
-public class Bootstrap implements ApplicationListener<ApplicationReadyEvent> {
+public class EmailServiceImpl implements EmailService {
 
-    private static final String APPLICATION_NAME = "Gmail API Java Quickstart";
+    private static final String APPLICATION_NAME = "gmailer-spring-boot";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-    private final HttpServer httpServer;
-    private final EmailService emailService;
-
+    private final EmailCreator emailCreator;
+    private final MessageCreator messageCreator;
 
     @Override
-    public void onApplicationEvent(final ApplicationReadyEvent event) {
-        log.info("Application is ready to serve requests");
-        try {
-            httpServer.start();
-            sendEmail();
-            log.info("HTTP server started on port {}", httpServer.getAddress().getPort());
-        } catch (Exception e) {
-            log.error("Error starting HTTP server", e);
-            throw new RuntimeException(e);
-        }
-    }
+    public void sendEmail(String toEmailAddress, String subject, String bodyText) throws IOException, MessagingException, GeneralSecurityException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
-    private void sendEmail() throws GeneralSecurityException, IOException, MessagingException {
-        emailService.sendEmail("contact@josdem.io", "Test email", "This is a test email");
-    }
+        var credentials = GmailService.getCredentials(HTTP_TRANSPORT);
+        var service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
+                .setApplicationName(APPLICATION_NAME)
+                .build();
 
+        var createEmail = emailCreator.create("contact@josdem.io", "vetlog@josdem.io", "Test email", "This is a test email");
+        var message = messageCreator.createMessageWithEmail(createEmail);
+        var result = service.users().messages().send("me", message).execute();
+        log.info("result: {}", result);
+    }
 }
