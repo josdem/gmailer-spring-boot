@@ -29,12 +29,14 @@ import java.net.InetSocketAddress;
 public class ApplicationConfig {
 
     private final CallbackHandler callbackHandler;
+    private final GetHandler getHandler;
 
     @Bean
     HttpServer httpServer() {
         try {
             HttpServer server = HttpServer.create(new InetSocketAddress(8083), 0);
             server.createContext("/Callback", callbackHandler);
+            server.createContext("/get", getHandler);
             server.setExecutor(null);
             return server;
         } catch (IOException ioe) {
