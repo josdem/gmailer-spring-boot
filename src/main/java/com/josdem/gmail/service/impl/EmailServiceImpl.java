@@ -61,7 +61,7 @@ public class EmailServiceImpl implements EmailService {
 
     var mimeMessage =
         templateCreator.createMailWithTemplate(
-            messageCommand, applicationProperties.getFromEmail(), "welcome.ftl");
+            messageCommand, applicationProperties.getFromEmail());
     var message = messageCreator.createMessageWithEmail(mimeMessage);
     var result = service.users().messages().send("me", message).execute();
     log.info("result: {}", result);

@@ -23,13 +23,12 @@ public class TemplateCreator {
   private final Configuration configuration;
   private final ObjectMapper mapper;
 
-  public MimeMessage createMailWithTemplate(
-      MessageCommand messageCommand, String fromEmail, String template)
+  public MimeMessage createMailWithTemplate(MessageCommand messageCommand, String fromEmail)
       throws IOException, TemplateException, MessagingException {
     var props = new Properties();
     var model = mapper.convertValue(messageCommand, new TypeReference<Map<String, String>>() {});
     var session = Session.getDefaultInstance(props, null);
-    var myTemplate = configuration.getTemplate(template);
+    var myTemplate = configuration.getTemplate(messageCommand.getTemplate());
     var mimeMessage = new MimeMessage(session);
     mimeMessage.setFrom(fromEmail);
     mimeMessage.setSubject(messageCommand.getSubject());
