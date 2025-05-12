@@ -26,6 +26,8 @@ import com.josdem.gmail.config.ApplicationProperties;
 import com.josdem.gmail.mail.EmailCreator;
 import com.josdem.gmail.mail.MessageCreator;
 import com.josdem.gmail.mail.TemplateCreator;
+import com.josdem.gmail.model.Command;
+import com.josdem.gmail.model.MessageCommand;
 import com.josdem.gmail.service.EmailService;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -51,7 +53,7 @@ public class EmailServiceImpl implements EmailService {
   private final ApplicationProperties applicationProperties;
 
   @Override
-  public boolean sendEmail(String toEmailAddress, String subject, String bodyText)
+  public boolean sendEmail(MessageCommand messageCommand)
           throws IOException, MessagingException, GeneralSecurityException, TemplateException, jakarta.mail.MessagingException {
     final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
@@ -61,7 +63,7 @@ public class EmailServiceImpl implements EmailService {
             .setApplicationName(APPLICATION_NAME)
             .build();
 
-    var mimeMessage = templateCreator.createMailWithTemplate(Map.of("subject", subject), toEmailAddress, applicationProperties.getFromEmail(), "email.ftl");
+    var mimeMessage = templateCreator.createMailWithTemplate(messageCommand, applicationProperties.getFromEmail(), "welcome.ftl");
     var message = messageCreator.createMessageWithEmail(mimeMessage);
     var result = service.users().messages().send("me", message).execute();
     log.info("result: {}", result);

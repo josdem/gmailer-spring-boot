@@ -17,7 +17,6 @@ public class MessageCreator {
     public Message createMessageWithEmail(MimeMessage emailContent) throws IOException, MessagingException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         emailContent.writeTo(buffer);
-        emailContent.writeTo(buffer);
         byte[] bytes = buffer.toByteArray();
         String encodedEmail = Base64.encodeBase64URLSafeString(bytes);
         var message = new Message();

@@ -54,8 +54,7 @@ public class EmailerController {
     if (!token.equals(command.getToken())) {
       return new ResponseEntity<String>("FORBIDDEN", HttpStatus.FORBIDDEN);
     }
-    emailService.sendEmail(
-        command.getEmail(), command.getSubject(), "Template to send: " + command.getTemplate());
+    emailService.sendEmail(command);
     return new ResponseEntity<>("OK", HttpStatus.OK);
   }
 
