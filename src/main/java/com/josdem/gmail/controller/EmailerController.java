@@ -48,11 +48,7 @@ public class EmailerController {
 
   @PostMapping(value = "/message", consumes = "application/json")
   public ResponseEntity<String> message(@RequestBody MessageCommand command)
-      throws MessagingException,
-          GeneralSecurityException,
-          IOException,
-          TemplateException,
-          jakarta.mail.MessagingException {
+      throws MessagingException, GeneralSecurityException, IOException, TemplateException {
     log.info("Request send email to: {}", command.getEmail());
     if (!token.equals(command.getToken())) {
       return new ResponseEntity<String>("FORBIDDEN", HttpStatus.FORBIDDEN);

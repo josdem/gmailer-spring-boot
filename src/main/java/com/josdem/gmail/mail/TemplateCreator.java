@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.Session;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class TemplateCreator {
 
   public MimeMessage createMailWithTemplate(
       MessageCommand messageCommand, String fromEmail, String template)
-      throws IOException, TemplateException, MessagingException, AddressException {
+      throws IOException, TemplateException, MessagingException {
     var props = new Properties();
     var model = mapper.convertValue(messageCommand, new TypeReference<Map<String, String>>() {});
     var session = Session.getDefaultInstance(props, null);

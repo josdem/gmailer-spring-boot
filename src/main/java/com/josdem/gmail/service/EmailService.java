@@ -25,9 +25,5 @@ import javax.mail.MessagingException;
 public interface EmailService {
 
   boolean sendEmail(MessageCommand messageCommand)
-      throws IOException,
-          MessagingException,
-          GeneralSecurityException,
-          TemplateException,
-          jakarta.mail.MessagingException;
+      throws IOException, MessagingException, GeneralSecurityException, TemplateException;
 }

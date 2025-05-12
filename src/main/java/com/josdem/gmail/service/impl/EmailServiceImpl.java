@@ -50,11 +50,7 @@ public class EmailServiceImpl implements EmailService {
 
   @Override
   public boolean sendEmail(MessageCommand messageCommand)
-      throws IOException,
-          MessagingException,
-          GeneralSecurityException,
-          TemplateException,
-          jakarta.mail.MessagingException {
+      throws IOException, MessagingException, GeneralSecurityException, TemplateException {
     final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
     var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
