@@ -40,28 +40,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class EmailerController {
 
-    @Value("${token}")
-    private String token;
+  @Value("${token}")
+  private String token;
 
-    private final EmailService emailService;
+  private final EmailService emailService;
 
-    @PostMapping(value = "/message", consumes = "application/json")
-    public ResponseEntity<String> message(@RequestBody MessageCommand command)
-            throws MessagingException, GeneralSecurityException, IOException {
-        log.info("Request send email to: {}", command.getEmail());
-        if (!token.equals(command.getToken())) {
-            return new ResponseEntity<String>("FORBIDDEN", HttpStatus.FORBIDDEN);
-        }
-        emailService.sendEmail(
-                command.getEmail(), command.getSubject(), "Template to send: " + command.getTemplate());
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+  @PostMapping(value = "/message", consumes = "application/json")
+  public ResponseEntity<String> message(@RequestBody MessageCommand command)
+      throws MessagingException, GeneralSecurityException, IOException {
+    log.info("Request send email to: {}", command.getEmail());
+    if (!token.equals(command.getToken())) {
+      return new ResponseEntity<String>("FORBIDDEN", HttpStatus.FORBIDDEN);
     }
+    emailService.sendEmail(
+        command.getEmail(), command.getSubject(), "Template to send: " + command.getTemplate());
+    return new ResponseEntity<>("OK", HttpStatus.OK);
+  }
 
-    @ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Unauthorized")
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<String> handleException(BusinessException be) {
-        return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
-    }
+  @ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Unauthorized")
+  @ExceptionHandler(BusinessException.class)
+  public ResponseEntity<String> handleException(BusinessException be) {
+    return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+  }
 }
-
-
