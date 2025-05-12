@@ -6,7 +6,7 @@ import java.io.IOException;
 public class EmailerVerificationCodeReceiverImpl implements VerificationCodeReceiver {
   @Override
   public String getRedirectUri() throws IOException {
-    return "http://localhost:8083/Callback";
+    return "https://gmailer.josdem.io/Callback";
   }
 
   @Override
