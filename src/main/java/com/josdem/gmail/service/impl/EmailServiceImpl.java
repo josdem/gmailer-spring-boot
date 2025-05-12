@@ -38,7 +38,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
-  private static final String APPLICATION_NAME = "emailer-spring-boot";
+  private static final String APPLICATION_NAME = "gmailer-spring-boot";
   private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
   private final EmailCreator emailCreator;
