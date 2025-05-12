@@ -33,6 +33,7 @@ public class TemplateCreator {
         var myTemplate = configuration.getTemplate(template);
         var mimeMessage = new MimeMessage(session);
         mimeMessage.setFrom(fromEmail);
+        mimeMessage.setSubject(messageCommand.getSubject());
         mimeMessage.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(messageCommand.getEmail()));
         var text = FreeMarkerTemplateUtils.processTemplateIntoString(myTemplate, model);
         mimeMessage.setText(text, "UTF-8", "html");
