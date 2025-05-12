@@ -1,12 +1,12 @@
 package com.josdem.gmail.mail;
 
 import com.google.api.services.gmail.model.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -14,12 +14,12 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class MessageCreator {
 
-    public Message createMessageWithEmail(MimeMessage emailContent) throws IOException, MessagingException {
+    public Message createMessageWithEmail(MimeMessage emailContent) throws MessagingException, IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         emailContent.writeTo(buffer);
         byte[] bytes = buffer.toByteArray();
         String encodedEmail = Base64.encodeBase64URLSafeString(bytes);
-        var message = new Message();
+        Message message = new Message();
         message.setRaw(encodedEmail);
         return message;
     }
