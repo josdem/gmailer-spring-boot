@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "npm install bootstrap"
+    "url": "https://github.com/josdem/gmailer-spring-boot"
   },
   "keywords": [
     "emailer"

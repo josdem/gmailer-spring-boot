@@ -8,7 +8,7 @@
     <h1>Jmailer</h1>
     <h3>From Administrator</h3>
     <hr>
-    <p>Hello dear Jmailer user, You recived a new ${name}'s message</p>
+    <p>Hello dear Jmailer user, You received a new ${name}'s message</p>
     <p>Message: ${message}</p>
     <p>Thank you for using Jmailer!</p>
   </body>
