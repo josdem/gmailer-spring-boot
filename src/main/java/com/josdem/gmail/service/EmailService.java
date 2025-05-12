@@ -18,7 +18,6 @@ package com.josdem.gmail.service;
 
 import com.josdem.gmail.model.MessageCommand;
 import freemarker.template.TemplateException;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import javax.mail.MessagingException;
@@ -26,5 +25,9 @@ import javax.mail.MessagingException;
 public interface EmailService {
 
   boolean sendEmail(MessageCommand messageCommand)
-          throws IOException, MessagingException, GeneralSecurityException, TemplateException, jakarta.mail.MessagingException;
+      throws IOException,
+          MessagingException,
+          GeneralSecurityException,
+          TemplateException,
+          jakarta.mail.MessagingException;
 }

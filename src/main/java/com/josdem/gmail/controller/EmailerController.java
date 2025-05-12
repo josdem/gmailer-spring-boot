@@ -19,11 +19,10 @@ package com.josdem.gmail.controller;
 import com.josdem.gmail.exception.BusinessException;
 import com.josdem.gmail.model.MessageCommand;
 import com.josdem.gmail.service.EmailService;
+import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import javax.mail.MessagingException;
-
-import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +48,11 @@ public class EmailerController {
 
   @PostMapping(value = "/message", consumes = "application/json")
   public ResponseEntity<String> message(@RequestBody MessageCommand command)
-          throws MessagingException, GeneralSecurityException, IOException, TemplateException, jakarta.mail.MessagingException {
+      throws MessagingException,
+          GeneralSecurityException,
+          IOException,
+          TemplateException,
+          jakarta.mail.MessagingException {
     log.info("Request send email to: {}", command.getEmail());
     if (!token.equals(command.getToken())) {
       return new ResponseEntity<String>("FORBIDDEN", HttpStatus.FORBIDDEN);

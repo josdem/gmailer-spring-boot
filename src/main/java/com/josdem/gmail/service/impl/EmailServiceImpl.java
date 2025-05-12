@@ -23,18 +23,14 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.gmail.Gmail;
 import com.josdem.gmail.client.GmailClient;
 import com.josdem.gmail.config.ApplicationProperties;
-import com.josdem.gmail.mail.EmailCreator;
 import com.josdem.gmail.mail.MessageCreator;
 import com.josdem.gmail.mail.TemplateCreator;
-import com.josdem.gmail.model.Command;
 import com.josdem.gmail.model.MessageCommand;
 import com.josdem.gmail.service.EmailService;
+import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.Map;
 import javax.mail.MessagingException;
-
-import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -54,7 +50,11 @@ public class EmailServiceImpl implements EmailService {
 
   @Override
   public boolean sendEmail(MessageCommand messageCommand)
-          throws IOException, MessagingException, GeneralSecurityException, TemplateException, jakarta.mail.MessagingException {
+      throws IOException,
+          MessagingException,
+          GeneralSecurityException,
+          TemplateException,
+          jakarta.mail.MessagingException {
     final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
     var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
@@ -63,7 +63,9 @@ public class EmailServiceImpl implements EmailService {
             .setApplicationName(APPLICATION_NAME)
             .build();
 
-    var mimeMessage = templateCreator.createMailWithTemplate(messageCommand, applicationProperties.getFromEmail(), "welcome.ftl");
+    var mimeMessage =
+        templateCreator.createMailWithTemplate(
+            messageCommand, applicationProperties.getFromEmail(), "welcome.ftl");
     var message = messageCreator.createMessageWithEmail(mimeMessage);
     var result = service.users().messages().send("me", message).execute();
     log.info("result: {}", result);
