@@ -25,10 +25,14 @@ import com.josdem.gmail.client.GmailClient;
 import com.josdem.gmail.config.ApplicationProperties;
 import com.josdem.gmail.mail.EmailCreator;
 import com.josdem.gmail.mail.MessageCreator;
+import com.josdem.gmail.mail.TemplateCreator;
 import com.josdem.gmail.service.EmailService;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.Map;
 import javax.mail.MessagingException;
+
+import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,11 +48,12 @@ public class EmailServiceImpl implements EmailService {
   private final EmailCreator emailCreator;
   private final MessageCreator messageCreator;
   private final GmailClient gmailClient;
+  private final TemplateCreator templateCreator;
   private final ApplicationProperties applicationProperties;
 
   @Override
   public boolean sendEmail(String toEmailAddress, String subject, String bodyText)
-      throws IOException, MessagingException, GeneralSecurityException {
+          throws IOException, MessagingException, GeneralSecurityException, TemplateException, jakarta.mail.MessagingException {
     final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
     var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
@@ -57,10 +62,8 @@ public class EmailServiceImpl implements EmailService {
             .setApplicationName(APPLICATION_NAME)
             .build();
 
-    var createEmail =
-        emailCreator.create(
-            toEmailAddress, applicationProperties.getFromEmail(), subject, bodyText);
-    var message = messageCreator.createMessageWithEmail(createEmail);
+    var mimeMessage = templateCreator.createMailWithTemplate(Map.of("subject", subject), toEmailAddress, applicationProperties.getFromEmail(), "email.ftl");
+    var message = messageCreator.createMessageWithEmail(mimeMessage);
     var result = service.users().messages().send("me", message).execute();
     log.info("result: {}", result);
     return true;

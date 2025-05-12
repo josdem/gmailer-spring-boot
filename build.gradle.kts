@@ -57,6 +57,7 @@ spotless {
 dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-web")
     implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation ("org.springframework.boot:spring-boot-starter-mail")
     implementation ("com.google.api-client:google-api-client:$googleApiClientVersion")
     implementation ("com.sun.mail:javax.mail:$javaMailVersion")
     implementation ("com.google.oauth-client:google-oauth-client-jetty:$googleOauthClientVersion")
