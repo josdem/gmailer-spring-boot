@@ -13,6 +13,7 @@ val googleOauthClientVersion = "1.34.1"
 val googleApiServicesVersion = "v1-rev20220404-2.0.0"
 val mockitoKotlinVersion = "5.4.0"
 val javaMailVersion = "1.6.2"
+val freeMarkerVersion = "2.3.34"
 
 group = "com.josdem.gmail"
 version = "1.0.0"
@@ -55,10 +56,13 @@ spotless {
 
 dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-web")
+    implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation ("org.springframework.boot:spring-boot-starter-mail")
     implementation ("com.google.api-client:google-api-client:$googleApiClientVersion")
     implementation ("com.sun.mail:javax.mail:$javaMailVersion")
     implementation ("com.google.oauth-client:google-oauth-client-jetty:$googleOauthClientVersion")
     implementation ("com.google.apis:google-api-services-gmail:$googleApiServicesVersion")
+    implementation("org.freemarker:freemarker:$freeMarkerVersion")
     compileOnly ("org.projectlombok:lombok")
     annotationProcessor ("org.projectlombok:lombok")
     testCompileOnly ("org.projectlombok:lombok")

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Command Line</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+  <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+    <a class="navbar-brand" href="/">Gmailer</a>
+  </nav>
+  <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Command/Script</h1>
+      <p class="col-md-8 fs-4">Send email from everywhere</p>
+      <a th:data-testid="registerHereButton" class="btn btn-primary btn-lg" href="contact" role="button">Register Here</a>
+    </div>
+  </div>
+  <div class="row align-items-md-stretch">
+    <div class="col-md-8">
+      <div class="h-100 p-5 text-bg-white rounded-3">
+        <p>You can send email using a command line or a script</p>
+        <br/>
+        <h4>CURL</h4>
+        <p>curl is an open source command line tool and library for transferring data with URL syntax</p>
+        <p>Request</p>
+        <code>curl -H "Content-Type: application/json" -v -X POST -d '{"name":"josdem","email":"joseluis.delacruz@gmail.com","subject":"Hello from Jmailer!","message":"Hello from curl!", "template":"message.ftl","token":"userToken"}' 'https://jmailer.josdem.io/emailer/message'</code>
+        <br/><br/><br/>
+        <h4>OkHttp</h4>
+        <p>HTTP is the way modern applications network. It’s how we exchange data & media. Doing HTTP efficiently makes your stuff load faster and saves bandwidth.</p>
+        <br/>
+        <code>
+          <p style="color:#999900;">@Throws<font color="black">(IOException::class)</font> </p>
+          <p style="color:#FF8000;">fun<font color="blue"> post</font><font color="black">(url: String, json: String): String {</font></p>
+          <p style="color:#FF8000;">&nbsp;&nbsp;val<font color="black"> body: RequestBody = RequestBody.create(<font color="green">"application/json"</font><font color="blue">.toMediaType()</font>, json)</font> </p>
+          <p style="color:#FF8000;">&nbsp;&nbsp;val<font color="black"> request: Request = url.<font color="blue">let</font> {</font></p>
+          <p style="color:black;">&nbsp;&nbsp;&nbsp;&nbsp;Request.Builder()</p>
+          <p style="color:black;">&nbsp;&nbsp;&nbsp;&nbsp;.url(url)</p>
+          <p style="color:black;">&nbsp;&nbsp;&nbsp;&nbsp;.post(body)</p>
+          <p style="color:black;">&nbsp;&nbsp;&nbsp;&nbsp;.build()</p>
+          <p style="color:black;">&nbsp;&nbsp;}</p>
+          <br/><br/>
+          <p style="color:#990000;">&nbsp;&nbsp;client<font color="black">.newCall(request).execute().use { response</font><font color="FF8000"> -></font></p>
+          <p style="color:#FF8000;">&nbsp;&nbsp;&nbsp;&nbsp;return<font color="black"> response.</font><font color="#990000">body</font><font color="black">!!.string()</font> </p>
+          <p style="color:black;">&nbsp;&nbsp;}</p>
+          <p style="color:black;">}</p>
+        </code>
+        <p>To see the complete HTTP client code go <a href="https://github.com/josdem/stand-alone-http-client">here</a></p>
+        <p><strong>Note:</strong> it should be a valid token to send the request successfully.</p>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <footer class="pt-3 mt-4 text-body-secondary border-top">
+    <a class="navbar-brand" href="http://josdem.io">© 2025 - josdem.io</a>
+  </footer>
+</body>
+</html>

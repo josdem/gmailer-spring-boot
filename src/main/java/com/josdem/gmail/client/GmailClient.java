@@ -26,7 +26,6 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.GmailScopes;
 import com.josdem.gmail.service.impl.EmailerVerificationCodeReceiverImpl;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

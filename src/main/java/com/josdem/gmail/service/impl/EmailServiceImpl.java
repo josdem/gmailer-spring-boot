@@ -23,9 +23,11 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.gmail.Gmail;
 import com.josdem.gmail.client.GmailClient;
 import com.josdem.gmail.config.ApplicationProperties;
-import com.josdem.gmail.mail.EmailCreator;
 import com.josdem.gmail.mail.MessageCreator;
+import com.josdem.gmail.mail.TemplateCreator;
+import com.josdem.gmail.model.MessageCommand;
 import com.josdem.gmail.service.EmailService;
+import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import javax.mail.MessagingException;
@@ -41,14 +43,14 @@ public class EmailServiceImpl implements EmailService {
   private static final String APPLICATION_NAME = "gmailer-spring-boot";
   private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-  private final EmailCreator emailCreator;
   private final MessageCreator messageCreator;
   private final GmailClient gmailClient;
+  private final TemplateCreator templateCreator;
   private final ApplicationProperties applicationProperties;
 
   @Override
-  public boolean sendEmail(String toEmailAddress, String subject, String bodyText)
-      throws IOException, MessagingException, GeneralSecurityException {
+  public boolean sendEmail(MessageCommand messageCommand)
+      throws IOException, MessagingException, GeneralSecurityException, TemplateException {
     final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
     var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
@@ -57,10 +59,10 @@ public class EmailServiceImpl implements EmailService {
             .setApplicationName(APPLICATION_NAME)
             .build();
 
-    var createEmail =
-        emailCreator.create(
-            toEmailAddress, applicationProperties.getFromEmail(), subject, bodyText);
-    var message = messageCreator.createMessageWithEmail(createEmail);
+    var mimeMessage =
+        templateCreator.createMailWithTemplate(
+            messageCommand, applicationProperties.getFromEmail(), "welcome.ftl");
+    var message = messageCreator.createMessageWithEmail(mimeMessage);
     var result = service.users().messages().send("me", message).execute();
     log.info("result: {}", result);
     return true;
