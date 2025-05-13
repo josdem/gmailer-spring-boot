@@ -28,4 +28,5 @@ import org.springframework.stereotype.Component;
 public class ApplicationProperties {
   private String fromEmail;
   private String callbackUrl;
+  private String tokenPath;
 }
