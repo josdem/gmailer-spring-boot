@@ -16,7 +16,7 @@ val javaMailVersion = "1.6.2"
 val freeMarkerVersion = "2.3.34"
 
 group = "com.josdem.gmail"
-version = "1.0.0"
+version = "1.0.0.1"
 
 
 java {
