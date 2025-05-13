@@ -55,7 +55,8 @@ public class GmailClient {
 
     GoogleAuthorizationCodeFlow flow =
         new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-            .setDataStoreFactory(new FileDataStoreFactory(new File(applicationProperties.getTokenPath())))
+            .setDataStoreFactory(
+                new FileDataStoreFactory(new File(applicationProperties.getTokenPath())))
             .setAccessType("offline")
             .setApprovalPrompt("force")
             .build();
