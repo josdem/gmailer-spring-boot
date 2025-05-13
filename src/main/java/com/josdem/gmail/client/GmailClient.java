@@ -43,6 +43,8 @@ public class GmailClient {
   private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
   private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
+  private final EmailerVerificationCodeReceiverImpl emailerVerificationCodeReceiver;
+
   public Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
     InputStream in = GmailClient.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
 
@@ -56,7 +58,7 @@ public class GmailClient {
             .setAccessType("offline")
             .setApprovalPrompt("force")
             .build();
-    return new AuthorizationCodeInstalledApp(flow, new EmailerVerificationCodeReceiverImpl())
+    return new AuthorizationCodeInstalledApp(flow, emailerVerificationCodeReceiver)
         .authorize("user");
   }
 }

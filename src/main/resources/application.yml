@@ -1,4 +1,5 @@
 api:
   fromEmail: "vetlog@josdem.io"
+  callbackUrl: "https://gmailer.josdem.io/Callback"
 server:
     port: 8083

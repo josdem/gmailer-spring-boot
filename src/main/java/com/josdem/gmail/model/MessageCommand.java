@@ -26,4 +26,6 @@ public class MessageCommand implements Command {
   private String message;
   private String template;
   private String token;
+  private String contactName;
+  private String emailContact;
 }

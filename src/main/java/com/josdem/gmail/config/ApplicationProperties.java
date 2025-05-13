@@ -27,4 +27,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("api")
 public class ApplicationProperties {
   private String fromEmail;
+  private String callbackUrl;
 }
