@@ -25,6 +25,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.GmailScopes;
+import com.josdem.gmail.config.ApplicationProperties;
 import com.josdem.gmail.service.impl.EmailerVerificationCodeReceiverImpl;
 import java.io.File;
 import java.io.IOException;
@@ -39,9 +40,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GmailClient {
   private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-  private static final String TOKENS_DIRECTORY_PATH = "src/main/resources/tokens";
   private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
   private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+
+  private final ApplicationProperties applicationProperties;
+  private final EmailerVerificationCodeReceiverImpl emailerVerificationCodeReceiver;
 
   public Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
     InputStream in = GmailClient.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
@@ -52,11 +55,12 @@ public class GmailClient {
 
     GoogleAuthorizationCodeFlow flow =
         new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-            .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
+            .setDataStoreFactory(
+                new FileDataStoreFactory(new File(applicationProperties.getTokenPath())))
             .setAccessType("offline")
             .setApprovalPrompt("force")
             .build();
-    return new AuthorizationCodeInstalledApp(flow, new EmailerVerificationCodeReceiverImpl())
+    return new AuthorizationCodeInstalledApp(flow, emailerVerificationCodeReceiver)
         .authorize("user");
   }
 }
