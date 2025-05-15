@@ -33,7 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @Controller
 @RequestMapping("/")
-@Tag(name = "Root Controller", description = "Manages basic views")
+@Tag(name = "Root Controller", description = "Manages views for root page")
 public class IndexController {
   // TODO: Give more descriptive summaries or change them if necessary
   @Value("${token}")
