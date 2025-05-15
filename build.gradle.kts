@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
@@ -69,17 +71,18 @@ dependencies {
     testAnnotationProcessor ("org.projectlombok:lombok")
     testImplementation ("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
+    //Swagger Dependency
+    implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    systemProperties(System.getProperties().toMap() as Map<String,Object>)
+    systemProperties(System.getProperties().toMap() as Map<String, Object>)
 }
 
 tasks.withType<BootRun> {
-    systemProperties(System.getProperties().toMap() as Map<String,Object>)
+    systemProperties(System.getProperties().toMap() as Map<String, Object>)
 }
-
 
 tasks.withType<Test> {
     dependsOn("spotlessApply")
