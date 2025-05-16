@@ -4,3 +4,5 @@ api:
   tokenPath: "/home/josdem/.gmailer/tokens"
 server:
     port: 8083
+app:
+  version: ${version}

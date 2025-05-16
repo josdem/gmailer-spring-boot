@@ -87,3 +87,9 @@ tasks.withType<BootRun> {
 tasks.withType<Test> {
     dependsOn("spotlessApply")
 }
+
+tasks.processResources {
+    filesMatching("application.yml") {
+        expand(project.properties)
+    }
+}

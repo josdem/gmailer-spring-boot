@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +16,9 @@ import java.util.Arrays;
 
 @Configuration
 public class SwaggerConfig {
+
+    @Value("${app.version}")
+    private String version;
     /**
      * Specifies Api metadata
      */
@@ -39,7 +43,7 @@ public class SwaggerConfig {
         Info info = new Info()
                 .title("Gmailer metadata")
                 .description("Contains the contact, license, wiki and version info of the app.")
-                .version("1.0.0")               //FIXME: idk where the app version is
+                .version(version)
                 .contact(contact)
                 .license(new License()
                         .name("Apache 2.0")
