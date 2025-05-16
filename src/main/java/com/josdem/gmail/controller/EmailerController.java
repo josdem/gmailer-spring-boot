@@ -55,7 +55,7 @@ public class EmailerController {
   @PostMapping(value = "/message", consumes = "application/json")
   @ApiResponse(responseCode = "200", description = "Message sent")
   @ApiResponse(responseCode = "403", description = "Forbidden message")
-  @ApiResponse(responseCode = "401", description = "Unauthorized")
+  @ApiResponse(responseCode = "401", description = "You have tried to access an Unauthorized page")
   public ResponseEntity<String> message(@RequestBody MessageCommand command)
       throws MessagingException, GeneralSecurityException, IOException, TemplateException {
     log.info("Request send email to: {}", command.getEmail());
