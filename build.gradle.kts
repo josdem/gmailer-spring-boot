@@ -1,5 +1,3 @@
-@file:Suppress("UNCHECKED_CAST")
-
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
