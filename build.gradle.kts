@@ -14,6 +14,7 @@ val googleApiServicesVersion = "v1-rev20220404-2.0.0"
 val mockitoKotlinVersion = "5.4.0"
 val javaMailVersion = "1.6.2"
 val freeMarkerVersion = "2.3.34"
+val openApiVersion = "2.8.8"
 
 group = "com.josdem.gmail"
 version = "1.0.0.1"
@@ -69,18 +70,26 @@ dependencies {
     testAnnotationProcessor ("org.projectlombok:lombok")
     testImplementation ("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
+    //Swagger Dependency
+    implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:$openApiVersion")
+
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    systemProperties(System.getProperties().toMap() as Map<String,Object>)
+    systemProperties(System.getProperties().toMap() as Map<String, Object>)
 }
 
 tasks.withType<BootRun> {
-    systemProperties(System.getProperties().toMap() as Map<String,Object>)
+    systemProperties(System.getProperties().toMap() as Map<String, Object>)
 }
-
 
 tasks.withType<Test> {
     dependsOn("spotlessApply")
+}
+
+tasks.processResources {
+    filesMatching("application.yml") {
+        expand(project.properties)
+    }
 }

@@ -23,6 +23,10 @@ import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import javax.mail.MessagingException;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/emailer/*")
 @RequiredArgsConstructor
+@Tag(name = "Emailer Controller", description = "Manages Emailer Endpoints")
 public class EmailerController {
 
   @Value("${token}")
@@ -46,7 +51,11 @@ public class EmailerController {
 
   private final EmailService emailService;
 
+  @Operation(summary = "Sends an Email")
   @PostMapping(value = "/message", consumes = "application/json")
+  @ApiResponse(responseCode = "200", description = "Message sent")
+  @ApiResponse(responseCode = "403", description = "Forbidden message")
+  @ApiResponse(responseCode = "401", description = "You have tried to access an Unauthorized page")
   public ResponseEntity<String> message(@RequestBody MessageCommand command)
       throws MessagingException, GeneralSecurityException, IOException, TemplateException {
     log.info("Request send email to: {}", command.getEmail());
