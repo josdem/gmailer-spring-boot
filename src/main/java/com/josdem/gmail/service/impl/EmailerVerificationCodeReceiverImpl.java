@@ -22,6 +22,7 @@ import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+
 @Component
 @RequiredArgsConstructor
 public class EmailerVerificationCodeReceiverImpl implements VerificationCodeReceiver {
@@ -35,7 +36,7 @@ public class EmailerVerificationCodeReceiverImpl implements VerificationCodeRece
 
   @Override
   public String waitForCode() throws IOException {
-    return "";
+      return "";
   }
 
   @Override

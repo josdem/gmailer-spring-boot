@@ -15,6 +15,8 @@ val mockitoKotlinVersion = "5.4.0"
 val javaMailVersion = "1.6.2"
 val freeMarkerVersion = "2.3.34"
 val openApiVersion = "2.8.8"
+val log4jApiVersion = "2.24.3"
+val aspectJVersion = "1.9.24"
 
 group = "com.josdem.gmail"
 version = "1.0.0.1"
@@ -72,7 +74,13 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
     //Swagger Dependency
     implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:$openApiVersion")
-
+    //BOM so we don't have to provide versions for each Log module explicitly
+    implementation ("org.apache.logging.log4j:log4j-bom:${log4jApiVersion}")
+    //Log4j dependencies
+    implementation("org.apache.logging.log4j:log4j-api:${log4jApiVersion}")
+    //Aspect support
+    implementation ("org.aspectj:aspectjweaver:${aspectJVersion}")
+    implementation ("org.aspectj:aspectjrt:${aspectJVersion}")
 }
 
 tasks.withType<Test> {
