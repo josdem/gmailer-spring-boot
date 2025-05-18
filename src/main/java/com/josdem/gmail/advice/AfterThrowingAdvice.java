@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class AfterThrowingAdvice {
-    @AfterThrowing(pointcut = "execution(* com.josdem.gmail.service.impl.*(..))", throwing = "ex")
-    public void afterThrowing(RuntimeException ex) {
-        throw new BusinessException(ex.getMessage(), ex);
-    }
+  @AfterThrowing(pointcut = "execution(* com.josdem.gmail.service.impl.*(..))", throwing = "ex")
+  public void afterThrowing(RuntimeException ex) {
+    throw new BusinessException(ex.getMessage(), ex);
+  }
 }
