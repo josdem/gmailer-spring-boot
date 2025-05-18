@@ -20,15 +20,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BusinessException extends RuntimeException {
-    private final Logger log = LogManager.getLogger(this.getClass().getName());
+  private final Logger log = LogManager.getLogger(this.getClass().getName());
 
-    public BusinessException(String message) {
-        super(message);
-        log.error(message);
-    }
+  public BusinessException(String message) {
+    super(message);
+    log.error(message);
+  }
 
-    public BusinessException(String message, Throwable cause) {
-        super(message, cause);
-        log.error(message, cause);
-    }
+  public BusinessException(String message, Throwable cause) {
+    super(message, cause);
+    log.error(message, cause);
+  }
 }

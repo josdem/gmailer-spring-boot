@@ -21,8 +21,8 @@
 package com.josdem.gmail.controller;
 
 import com.josdem.gmail.model.MessageCommand;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -45,12 +45,14 @@ public class IndexController {
     log.info("Calling index");
     return "index";
   }
+
   @Operation(summary = "Returns the command line page")
   @GetMapping("/command-line")
   public String commandLine() {
     log.info("Calling command line");
     return "command_line";
   }
+
   @Operation(summary = "Returns the form page")
   @GetMapping("/form")
   public ModelAndView form() {
@@ -79,6 +81,7 @@ public class IndexController {
     modelAndView.addObject("message", message);
     return modelAndView;
   }
+
   @Operation(summary = "Returns the flyer page")
   @GetMapping("/flyer")
   public String flyer() {

@@ -20,13 +20,12 @@ import com.josdem.gmail.exception.BusinessException;
 import com.josdem.gmail.model.MessageCommand;
 import com.josdem.gmail.service.EmailService;
 import freemarker.template.TemplateException;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import javax.mail.MessagingException;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import javax.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

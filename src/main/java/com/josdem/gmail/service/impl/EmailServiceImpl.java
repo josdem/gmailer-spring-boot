@@ -28,49 +28,50 @@ import com.josdem.gmail.mail.TemplateCreator;
 import com.josdem.gmail.model.MessageCommand;
 import com.josdem.gmail.service.EmailService;
 import freemarker.template.TemplateException;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import javax.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
-    private static final String APPLICATION_NAME = "gmailer-spring-boot";
-    private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
+  private static final String APPLICATION_NAME = "gmailer-spring-boot";
+  private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-    private final Logger log = LogManager.getLogger(this.getClass().getName());
-    private final MessageCreator messageCreator;
-    private final GmailClient gmailClient;
-    private final TemplateCreator templateCreator;
-    private final ApplicationProperties applicationProperties;
+  private final Logger log = LogManager.getLogger(this.getClass().getName());
+  private final MessageCreator messageCreator;
+  private final GmailClient gmailClient;
+  private final TemplateCreator templateCreator;
+  private final ApplicationProperties applicationProperties;
 
-    @Override
-    public boolean sendEmail(MessageCommand messageCommand)
-            throws IOException, MessagingException, GeneralSecurityException, TemplateException {
-        try {
-            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+  @Override
+  public boolean sendEmail(MessageCommand messageCommand)
+      throws IOException, MessagingException, GeneralSecurityException, TemplateException {
+    try {
+      final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
-            var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
-            var service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
-                            .setApplicationName(APPLICATION_NAME)
-                            .build();
+      var credentials = gmailClient.getCredentials(HTTP_TRANSPORT);
+      var service =
+          new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
+              .setApplicationName(APPLICATION_NAME)
+              .build();
 
-            var mimeMessage = templateCreator
-                    .createMailWithTemplate(messageCommand, applicationProperties.getFromEmail());
-            var message = messageCreator.createMessageWithEmail(mimeMessage);
-            var result = service.users().messages().send("me", message).execute();
-            log.info("Email result: '{}'", result);
-            return true;
-        } catch (IOException | MessagingException | GeneralSecurityException | TemplateException ex) {
-            throw ex;
-        }
+      var mimeMessage =
+          templateCreator.createMailWithTemplate(
+              messageCommand, applicationProperties.getFromEmail());
+      var message = messageCreator.createMessageWithEmail(mimeMessage);
+      var result = service.users().messages().send("me", message).execute();
+      log.info("Email result: '{}'", result);
+      return true;
+    } catch (IOException | MessagingException | GeneralSecurityException | TemplateException ex) {
+      throw ex;
     }
+  }
 }
