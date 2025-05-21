@@ -101,3 +101,14 @@ tasks.processResources {
         expand(project.properties)
     }
 }
+
+//FIXME: idk if its right
+tasks.register<Copy>("copyCredentials") {
+
+    val source = file("src/main/resources/credentials/dummy_credentials.json")
+    val destination = file("src/main/resources/credentials")
+
+    from(source)
+    into(destination)
+    rename { "credentials.json" }
+}
