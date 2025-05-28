@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "TimothyMwangi101",
+      "name": "Tim",
+      "avatar_url": "https://avatars.githubusercontent.com/u/134459817?v=4",
+      "profile": "https://github.com/TimothyMwangi101",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "gmailer-spring-boot",
+  "projectOwner": "josdem"
+}
