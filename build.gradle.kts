@@ -102,11 +102,11 @@ tasks.processResources {
     }
 }
 
-//FIXME: idk if its right
+//TODO: modify if it doesn't fit you criteria
 tasks.register<Copy>("copyCredentials") {
-
-    val source = file("src/main/resources/credentials/dummy_credentials.json")
-    val destination = file("src/main/resources/credentials")
+    //I'm assuming I don't have access of credentials.json
+    val source = file("credentials.json")
+    val destination = file("src/main/resources/")
 
     from(source)
     into(destination)

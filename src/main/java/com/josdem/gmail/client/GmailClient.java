@@ -41,7 +41,7 @@ import org.springframework.stereotype.Component;
 public class GmailClient {
   private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
   private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
-  private static final String CREDENTIALS_FILE_PATH = "src/main/resources/credentials/credentials.json";
+  private static final String CREDENTIALS_FILE_PATH = "src/main/resources/credentials.json";
 
   private final ApplicationProperties applicationProperties;
   private final EmailerVerificationCodeReceiverImpl emailerVerificationCodeReceiver;
