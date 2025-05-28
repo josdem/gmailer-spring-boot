@@ -28,7 +28,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/TimothyMwangi101"><img src="https://avatars.githubusercontent.com/u/134459817?v=4?s=100" width="100px;" alt="Tim"/><br /><sub><b>Tim</b></sub></a><br /><a href="https://github.com/josdem/gmailer-spring-boot/commits?author=TimothyMwangi101" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/TimothyMwangi101"><img src="https://avatars.githubusercontent.com/u/134459817?v=4?s=100" width="100px;" alt="Tim"/><br /><sub><b>Tim</b></sub></a><br /><a href="https://github.com/josdem/gmailer-spring-boot/commits?author=TimothyMwangi101" title="Code">💻</a> <a href="#infra-TimothyMwangi101" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     </tr>
   </tbody>
 </table>
