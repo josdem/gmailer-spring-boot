@@ -3,14 +3,14 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 plugins {
     id("org.springframework.boot") version "3.4.5"
     id("io.spring.dependency-management") version "1.1.7"
-    id("com.diffplug.spotless") version "7.0.2"
-    id("org.jetbrains.kotlin.jvm") version "2.1.10"
+    id("com.diffplug.spotless") version "7.0.3"
+    id("org.jetbrains.kotlin.jvm") version "2.1.20"
     id("java")
 }
 
-val googleApiClientVersion = "2.0.0"
-val googleOauthClientVersion = "1.34.1"
-val googleApiServicesVersion = "v1-rev20220404-2.0.0"
+val googleApiClientVersion = "2.7.2"
+val googleOauthClientVersion = "1.39.0"
+val googleApiServicesVersion = "v1-rev110-1.25.0"
 val mockitoKotlinVersion = "5.4.0"
 val javaMailVersion = "1.6.2"
 val freeMarkerVersion = "2.3.34"
