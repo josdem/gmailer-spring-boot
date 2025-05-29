@@ -6,6 +6,7 @@ plugins {
     id("com.diffplug.spotless") version "7.0.3"
     id("org.jetbrains.kotlin.jvm") version "2.1.20"
     id("java")
+    jacoco
 }
 
 val googleApiClientVersion = "2.7.2"
@@ -36,6 +37,10 @@ configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
+}
+
+jacoco {
+    toolVersion = "0.8.13"
 }
 
 repositories {
@@ -98,11 +103,24 @@ tasks.withType<Test> {
 
 tasks.processResources {
     filesMatching("application.yml") {
-        expand(project.properties)
+        expand(project.properties)      //Exposes properties to application.yml so we can get the version
     }
 }
 
-//TODO: modify if it doesn't fit you criteria
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport)     //Report is always generated after test
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)   //Makes sure tests are run first
+    reports {
+        html.required = true
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+    }
+}
+
 tasks.register<Copy>("copyCredentials") {
     //I'm assuming I don't have access of credentials.json
     val source = file("credentials.json")
