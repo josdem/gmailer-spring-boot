@@ -12,12 +12,12 @@
     </header>
     <hr>
     <div class="d-flex flex-column" style="margin: 0px 15px">
-    <h3>Arriving home</h3>
+    <h3>Llegando a casa</h3>
     <br/>
-    <p>Hello dear ${name}</p>
-    <p>Your pet ${message} is around the corner, we had fun and we are excited to see you again.</p>
-    <p>Visit our <a href="https://vetlog.org/privacy/show">privacy policy</a></p>
-    <p>Thank you for using Vetlog.</p>
+    <p>Hola ${name}</p>
+    <p>Tu mascota ${message} está por llegar a casa, nos divertimos mucho y esperamos verlos pronto nuevamente.</p>
+    <p>Visita nuestro <a href="https://vetlog.org/privacy/show">aviso de privacidad</a></p>
+    <p>Gracias por usar Vetlog.</p>
     </div>
     <footer>
     <table width="100%" bgcolor="#000000" cellpadding="10">
