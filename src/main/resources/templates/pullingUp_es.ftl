@@ -12,25 +12,25 @@
     </header>
     <hr>
     <div class="d-flex flex-column" style="margin: 0px 15px">
-      <h3>¡Bienvenid@ a Vetlog!</h3>
-      <br/>
-      <p>Hola ${name}, estamos felices que estés con nosotros.</p>
-      <p>Ahora que tienes una cuenta, siéntete libre de: ${message}</p>
-      <p>Visita nuestro <a href="https://vetlog.org/privacy/show">aviso de privacidad</a></p>
-      <p>Gracias por usar Vetlog.</p>
+    <h3>Llegando a casa</h3>
+    <br/>
+    <p>Hola ${name}</p>
+    <p>Tu mascota ${message} está por llegar a casa, nos divertimos mucho y esperamos verlos pronto nuevamente.</p>
+    <p>Visita nuestro <a href="https://vetlog.org/privacy/show">aviso de privacidad</a></p>
+    <p>Gracias por usar Vetlog.</p>
     </div>
     <footer>
     <table width="100%" bgcolor="#000000" cellpadding="10">
     <tr>
       <td align="center">
         <a href="https://twitter.com/vetlog_care">
-          <img src="https://storage.googleapis.com/vetlog-icons/twitter.png" height="20" width="20" alt="twitter" style="margin: 0px 10px;">
+          <img src="https://storage.googleapis.com/vetlog-icons/twitter.png" height="20" width="20" alt="Vetlog on Twitter" style="margin: 0px 10px;">
         </a>
         <a href="https://www.instagram.com/vetlog_care">
-          <img src="https://storage.googleapis.com/vetlog-icons/instagram.png" height="20" width="20" alt="instagram" style="margin: 0px 10px;">
+          <img src="https://storage.googleapis.com/vetlog-icons/instagram.png" height="20" width="20" alt="Vetlog on Instagram" style="margin: 0px 10px;">
         </a>
         <a href="https://tiktok.com/@vetlog_care">
-          <img src="https://storage.googleapis.com/vetlog-icons/tiktok.png" height="20" width="20" alt="tiktok" style="margin: 0px 10px;">
+          <img src="https://storage.googleapis.com/vetlog-icons/tiktok.png" height="20" width="20" alt="Vetlog on TikTok" style="margin: 0px 10px;">
         </a>
       </td>
     </tr>
@@ -44,7 +44,7 @@
         <a href="https://vetlog.org/" style="color: white; font-size: 14px;">https://vetlog.org/</a>
       </td>
     </tr>
-    </table>
-  </footer>
+  </table>
+</footer>
 </body>
 </html>

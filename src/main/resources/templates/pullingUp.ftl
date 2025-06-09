@@ -12,7 +12,7 @@
     </header>
     <hr>
     <div class="d-flex flex-column" style="margin: 0px 15px">
-    <h3>Welcome to Vetlog!</h3>
+    <h3>Arriving home</h3>
     <br/>
     <p>Hello dear ${name}</p>
     <p>Your pet ${message} is around the corner, we had fun and we are excited to see you again.</p>

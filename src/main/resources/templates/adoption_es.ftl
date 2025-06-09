@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <title>Notification</title>
@@ -26,13 +26,13 @@
         <tr>
           <td align="center">
             <a href="https://twitter.com/vetlog_care">
-              <img src="https://storage.googleapis.com/vetlog-icons/twitter.png" height="20" width="20" alt="twitter" style="margin: 0px 10px;">
+              <img src="https://storage.googleapis.com/vetlog-icons/twitter.png" height="20" width="20" alt="Vetlog on Twitter" style="margin: 0px 10px;">
             </a>
             <a href="https://www.instagram.com/vetlog_care">
-              <img src="https://storage.googleapis.com/vetlog-icons/instagram.png" height="20" width="20" alt="instagram" style="margin: 0px 10px;">
+              <img src="https://storage.googleapis.com/vetlog-icons/instagram.png" height="20" width="20" alt="Vetlog on Instagram" style="margin: 0px 10px;">
             </a>
             <a href="https://tiktok.com/@vetlog_care">
-              <img src="https://storage.googleapis.com/vetlog-icons/tiktok.png" height="20" width="20" alt="tiktok" style="margin: 0px 10px;">
+              <img src="https://storage.googleapis.com/vetlog-icons/tiktok.png" height="20" width="20" alt="Vetlog on Tiktok" style="margin: 0px 10px;">
             </a>
           </td>
         </tr>
