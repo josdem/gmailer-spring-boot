@@ -20,7 +20,7 @@ val log4jApiVersion = "2.24.3"
 val aspectJVersion = "1.9.24"
 
 group = "com.josdem.gmail"
-version = "1.0.2"
+version = "1.0.3"
 
 
 java {
