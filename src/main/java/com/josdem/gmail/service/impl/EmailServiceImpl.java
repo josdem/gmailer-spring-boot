@@ -45,7 +45,6 @@ public class EmailServiceImpl implements EmailService {
   private static final String APPLICATION_NAME = "gmailer-spring-boot";
   private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-  private final Logger log = LogManager.getLogger(this.getClass().getName());
   private final MessageCreator messageCreator;
   private final GmailClient gmailClient;
   private final TemplateCreator templateCreator;
