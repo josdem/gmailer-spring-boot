@@ -9,9 +9,9 @@ plugins {
     jacoco
 }
 
-val googleApiClientVersion = "2.0.0"
-val googleOauthClientVersion = "1.34.1"
-val googleApiServicesVersion = "v1-rev20220404-2.0.0"
+val googleApiClientVersion = "1.25.0"
+val googleOauthClientVersion = "1.39.0"
+val googleApiServicesVersion = "v1-rev110-1.25.0"
 val mockitoKotlinVersion = "5.4.0"
 val javaMailVersion = "1.6.2"
 val freeMarkerVersion = "2.3.34"
@@ -20,7 +20,7 @@ val log4jApiVersion = "2.24.3"
 val aspectJVersion = "1.9.24"
 
 group = "com.josdem.gmail"
-version = "1.0.2"
+version = "1.0.3"
 
 
 java {
