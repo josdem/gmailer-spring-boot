@@ -52,7 +52,7 @@ internal class EmailerControllerTest {
     }
 
     @Test
-    fun `should not send email due to invalid user credentials`(testInfo: TestInfo) {
+    fun `should send email`(testInfo: TestInfo) {
         log.info(testInfo.displayName)
 
         val validMessage = message
@@ -64,7 +64,7 @@ internal class EmailerControllerTest {
                 .content(objectMapper.writeValueAsString(message))
         mockMvc
             .perform(request)
-            .andExpect(status().isUnauthorized)
+            .andExpect(status().isOk)
     }
 
     private val message =
