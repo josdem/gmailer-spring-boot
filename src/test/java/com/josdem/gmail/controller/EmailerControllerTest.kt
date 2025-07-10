@@ -51,6 +51,22 @@ internal class EmailerControllerTest {
             .andExpect(status().isForbidden)
     }
 
+    @Test
+    fun `should not send email due to invalid user credentials`(testInfo: TestInfo) {
+        log.info(testInfo.displayName)
+
+        val validMessage = message
+        validMessage.token = "userToken"
+
+        val request =
+            post("/emailer/message")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(message))
+        mockMvc
+            .perform(request)
+            .andExpect(status().isUnauthorized)
+    }
+
     private val message =
         MessageCommand().apply {
             name = "josdem"
@@ -58,6 +74,6 @@ internal class EmailerControllerTest {
             subject = "Hello from Junit5"
             message = "This is a test message"
             template = "message.ftl"
-            token = "invalid-token"
+            token = "invalidToken"
         }
 }
