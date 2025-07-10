@@ -16,6 +16,8 @@
 
 package com.josdem.gmail.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.josdem.gmail.model.MessageCommand
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
 import org.slf4j.LoggerFactory
@@ -32,6 +34,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 internal class EmailerControllerTest {
     @Autowired private lateinit var mockMvc: MockMvc
 
+    @Autowired private lateinit var objectMapper: ObjectMapper
+
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @Test
@@ -41,14 +45,19 @@ internal class EmailerControllerTest {
         val request =
             post("/emailer/message")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("name", "josdem")
-                .param("email", "contact@josdem.io")
-                .param("subject", "Hello from Junit5")
-                .param("message", "This is a test message")
-                .param("template", "message.ftl")
-                .param("token", "invalid-token")
+                .content(objectMapper.writeValueAsString(message))
         mockMvc
             .perform(request)
             .andExpect(status().isForbidden)
     }
+
+    private val message =
+        MessageCommand().apply {
+            name = "josdem"
+            email = "contact@josdem.io"
+            subject = "Hello from Junit5"
+            message = "This is a test message"
+            template = "message.ftl"
+            token = "invalid-token"
+        }
 }
