@@ -27,7 +27,6 @@ import java.util.Properties
 import javax.mail.Session
 
 internal class MimeMessageHelperTest {
-
     @Mock
     private lateinit var properties: Properties
 

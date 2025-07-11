@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory
 import java.util.Properties
 
 internal class SessionHelperTest {
-
     @Mock
     private lateinit var properties: Properties
 

@@ -14,22 +14,27 @@
   limitations under the License.
 */
 
-package com.josdem.gmail.helper
+package com.josdem.gmail
 
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.ApplicationContext
 
-internal class InternetAddressHelperTest {
-    private val internetAddressHelper = InternetAddressHelper()
+@SpringBootTest
+internal class EmailerApplicationTest {
+    @Autowired
+    private lateinit var applicationContext: ApplicationContext
 
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @Test
-    fun `should create internet address`(testInfo: TestInfo) {
+    fun `should load application`(testInfo: TestInfo) {
         log.info(testInfo.displayName)
-        val email = "contact@josdem.io"
-        assertNotNull(internetAddressHelper.createInternetAddress(email))
+        EmailerSpringBootApplication.main(arrayOf())
+        assertNotNull(applicationContext)
     }
 }
