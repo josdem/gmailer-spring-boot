@@ -22,7 +22,6 @@ import org.junit.jupiter.api.TestInfo
 import org.slf4j.LoggerFactory
 
 internal class BusinessExceptionTest {
-
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @Test
