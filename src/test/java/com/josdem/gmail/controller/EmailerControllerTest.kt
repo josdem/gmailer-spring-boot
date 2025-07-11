@@ -54,7 +54,7 @@ internal class EmailerControllerTest {
     }
 
     @Test
-    fun `should send email due to invalid credentials`(testInfo: TestInfo) {
+    fun `should not send email due to invalid credentials`(testInfo: TestInfo) {
         log.info(testInfo.displayName)
 
         val validMessage = message
