@@ -17,9 +17,11 @@
 package com.josdem.gmail.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.api.client.auth.oauth2.TokenResponseException
 import com.josdem.gmail.model.MessageCommand
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
+import org.junit.jupiter.api.assertThrows
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -52,7 +54,7 @@ internal class EmailerControllerTest {
     }
 
     @Test
-    fun `should send email`(testInfo: TestInfo) {
+    fun `should send email due to invalid credentials`(testInfo: TestInfo) {
         log.info(testInfo.displayName)
 
         val validMessage = message
@@ -62,9 +64,12 @@ internal class EmailerControllerTest {
             post("/emailer/message")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(message))
-        mockMvc
-            .perform(request)
-            .andExpect(status().isOk)
+
+        assertThrows<TokenResponseException> {
+            mockMvc
+                .perform(request)
+                .andExpect(status().isUnauthorized)
+        }
     }
 
     private val message =
