@@ -3,5 +3,4 @@
 tokens/
 build/
 **node_modules/
-**credentials.json
 **package-lock.json

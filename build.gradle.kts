@@ -20,7 +20,7 @@ val log4jApiVersion = "2.24.3"
 val aspectJVersion = "1.9.24"
 
 group = "com.josdem.gmail"
-version = "1.0.3"
+version = "1.0.4"
 
 
 java {
@@ -122,8 +122,8 @@ tasks.jacocoTestReport {
 }
 
 tasks.register<Copy>("copyCredentials") {
-    //I'm assuming I don't have access of credentials.json
-    val source = file("credentials.json")
+    // This task copies the credentials.json file from a specific location to the resources directory
+    val source = file("/home/josdem/.gmailer/credentials.json")
     val destination = file("src/main/resources/")
 
     from(source)
