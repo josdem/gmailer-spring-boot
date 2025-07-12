@@ -19,6 +19,7 @@ jobs:
       - name: Create tokens directory
         run: |
             sudo mkdir -p /home/josdem/.gmailer/tokens
+            touch /home/josdem/.gmailer/tokens/StoredCredential
       - name: Run tests
         run: ./gradlew -Dtoken=userToken jacocoTestReport test
       - name: Upload test results
