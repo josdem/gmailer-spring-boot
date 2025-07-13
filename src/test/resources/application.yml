@@ -1,0 +1,33 @@
+api:
+  fromEmail: "test@example.com"
+  callbackUrl: "http://localhost:8083/Callback"
+  tokenPath: "/tmp/tokens"
+
+server:
+  port: 0  # Use random port for tests
+
+app:
+  version: "1.0.4"
+
+mail:
+  username: test@example.com
+  password: testpassword
+  host: smtp.example.com
+  port: 587
+
+# Test-specific token
+token: "test-token-for-unit-tests"
+
+# Disable actual email sending during tests
+spring:
+  mail:
+    host: localhost
+    port: 3025
+    username: test@example.com
+    password: testpassword
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false 
