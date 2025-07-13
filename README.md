@@ -1,6 +1,7 @@
 gmailer-spring-boot
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![GitHub](https://github.com/josdem/gmailer-spring-boot/actions/workflows/main.yml/badge.svg)](https://github.com/josdem/gmailer-spring-boot/actions)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ----------------------------------------------
 Simple Gmail API server
