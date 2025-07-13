@@ -64,7 +64,9 @@ internal class EmailerControllerTest {
         log.info(testInfo.displayName)
 
         val validMessage = message
-        validMessage.token = "test-token-for-unit-tests" // Use the test token from config
+        // Use the token from system properties if available, otherwise use test config
+        val testToken = System.getProperty("token") ?: "test-token-for-unit-tests"
+        validMessage.token = testToken
 
         // Mock the email service to throw BusinessException
         doThrow(BusinessException("Invalid Gmail credentials"))
