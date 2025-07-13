@@ -6,3 +6,9 @@ server:
     port: 8083
 app:
   version: ${version}
+
+mail:
+  username: test@example.com
+  password: securepassword
+  host: smtp.example.com
+  port: 587
