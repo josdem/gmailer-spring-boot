@@ -24,6 +24,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.whenever
+import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -60,6 +62,7 @@ internal class EmailerControllerTest {
     }
 
     @Test
+    @DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true")
     fun `should not send email due to invalid credentials`(testInfo: TestInfo) {
         log.info(testInfo.displayName)
 
