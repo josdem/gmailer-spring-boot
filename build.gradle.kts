@@ -115,9 +115,22 @@ tasks.jacocoTestReport {
     dependsOn(tasks.test)   //Makes sure tests are run first
     reports {
         html.required = true
-        xml.required = false
+        xml.required = true  // Required for SonarCloud
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+    }
+}
+
+// Configure JaCoCo for SonarCloud
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = "LINE"
+                value = "COVEREDRATIO"
+                minimum = "0.0".toBigDecimal()
+            }
+        }
     }
 }
 

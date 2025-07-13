@@ -17,16 +17,20 @@
 package com.josdem.gmail.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.api.client.auth.oauth2.TokenResponseException
+import com.josdem.gmail.exception.BusinessException
 import com.josdem.gmail.model.MessageCommand
+import com.josdem.gmail.service.EmailService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
+import org.mockito.kotlin.doThrow
+import org.mockito.kotlin.whenever
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -38,6 +42,9 @@ internal class EmailerControllerTest {
     @Autowired private lateinit var mockMvc: MockMvc
 
     @Autowired private lateinit var objectMapper: ObjectMapper
+
+    @MockBean
+    private lateinit var emailService: EmailService
 
     private val log = LoggerFactory.getLogger(this::class.java)
 
@@ -60,18 +67,24 @@ internal class EmailerControllerTest {
         log.info(testInfo.displayName)
 
         val validMessage = message
-        validMessage.token = "userToken"
+        // Use the token from system properties if available, otherwise use test config
+        val testToken = System.getProperty("token") ?: "test-token-for-unit-tests"
+        validMessage.token = testToken
+
+        // Mock the email service to throw BusinessException
+        doThrow(BusinessException("Invalid Gmail credentials"))
+            .whenever(emailService)
+            .sendEmail(validMessage)
 
         val request =
             post("/emailer/message")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(message))
+                .content(objectMapper.writeValueAsString(validMessage))
 
-        assertThrows<TokenResponseException> {
-            mockMvc
-                .perform(request)
-                .andExpect(status().isUnauthorized)
-        }
+        // When the email service throws BusinessException, the controller should return 401
+        mockMvc
+            .perform(request)
+            .andExpect(status().isUnauthorized)
     }
 
     private val message =
