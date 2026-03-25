@@ -1,6 +1,6 @@
 gmailer-spring-boot
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ----------------------------------------------
 Simple Gmail API server
@@ -67,6 +67,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/TimothyMwangi101"><img src="https://avatars.githubusercontent.com/u/134459817?v=4?s=100" width="100px;" alt="Tim"/><br /><sub><b>Tim</b></sub></a><br /><a href="https://github.com/josdem/gmailer-spring-boot/commits?author=TimothyMwangi101" title="Code">💻</a> <a href="#infra-TimothyMwangi101" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Nkwenti-Severian-Ndongtsop"><img src="https://avatars.githubusercontent.com/u/180976800?v=4?s=100" width="100px;" alt="@Nkwenti @Severian"/><br /><sub><b>@Nkwenti @Severian</b></sub></a><br /><a href="https://github.com/josdem/gmailer-spring-boot/commits?author=Nkwenti-Severian-Ndongtsop" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://narrow-marsupial-6e4.notion.site/07e40fe36c8e4f339745a5cc58e607ad"><img src="https://avatars.githubusercontent.com/u/62369538?v=4?s=100" width="100px;" alt="Yuna Lee"/><br /><sub><b>Yuna Lee</b></sub></a><br /><a href="https://github.com/josdem/gmailer-spring-boot/commits?author=younlll" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
