@@ -40,7 +40,7 @@
         </tr>
         <tr>
           <td align="center" style="color: white; font-size: 14px;">
-            <span>&#169;</span> Copyright 2025, Vetlog.
+            <span>&#169;</span> Copyright 2026, Vetlog.
           </td>
         </tr>
         <tr>
