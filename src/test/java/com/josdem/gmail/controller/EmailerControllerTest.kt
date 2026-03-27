@@ -1,5 +1,5 @@
 /*
-  Copyright 2025 Jose Morales contact@josdem.io
+  Copyright 2026 Jose Morales contact@josdem.io
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -22,10 +22,9 @@ import com.josdem.gmail.model.MessageCommand
 import com.josdem.gmail.service.EmailService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.whenever
-import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
