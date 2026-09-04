@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        .hero-section {
+            background-image: url('/images/welcome.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar bg-dark border-bottom border-body ps-4" data-bs-theme="dark">
@@ -13,9 +21,9 @@
         <i class="bi bi-send-fill"></i>
         Gmailer</a>
 </nav>
-<div class="p-5 mb-4 bg-body-tertiary rounded-3">
-    <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Welcome!</h1>
+<div class="p-5 mb-4 bg-body-tertiary rounded-3 hero-section">
+    <div class="container-fluid py-5 d-flex flex-column align-items-center text-center">
+        <h1 class="display-3 fw-bold">Welcome!</h1>
         <p class="col-md-8 fs-4">Send email from everywhere</p>
         <a th:data-testid="registerHereButton" class="btn btn-primary btn-lg" href="contact" type="button">Register Here</a>
     </div>
