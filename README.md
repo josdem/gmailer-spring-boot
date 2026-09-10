@@ -1,6 +1,6 @@
 gmailer-spring-boot
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ----------------------------------------------
 Simple Gmail API server
@@ -69,6 +69,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Nkwenti-Severian-Ndongtsop"><img src="https://avatars.githubusercontent.com/u/180976800?v=4?s=100" width="100px;" alt="@Nkwenti @Severian"/><br /><sub><b>@Nkwenti @Severian</b></sub></a><br /><a href="https://github.com/josdem/gmailer-spring-boot/commits?author=Nkwenti-Severian-Ndongtsop" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://narrow-marsupial-6e4.notion.site/07e40fe36c8e4f339745a5cc58e607ad"><img src="https://avatars.githubusercontent.com/u/62369538?v=4?s=100" width="100px;" alt="Yuna Lee"/><br /><sub><b>Yuna Lee</b></sub></a><br /><a href="https://github.com/josdem/gmailer-spring-boot/commits?author=younlll" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/samruddhi-2308"><img src="https://avatars.githubusercontent.com/u/173466911?v=4?s=100" width="100px;" alt="Samruddhi Lakare"/><br /><sub><b>Samruddhi Lakare</b></sub></a><br /><a href="https://github.com/josdem/gmailer-spring-boot/commits?author=samruddhi-2308" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ArunVasunny"><img src="https://avatars.githubusercontent.com/u/95523309?v=4?s=100" width="100px;" alt="Arun Vasunny"/><br /><sub><b>Arun Vasunny</b></sub></a><br /><a href="#design-ArunVasunny" title="Design">🎨</a></td>
     </tr>
   </tbody>
 </table>
