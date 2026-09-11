@@ -1,0 +1,6 @@
+.hero-section {
+    background-image: url('/images/welcome.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
